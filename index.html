@@ -17,7 +17,6 @@
 html { scroll-behavior:smooth; }
 body { background:var(--bg); color:var(--text); font-family:'Inter',-apple-system,sans-serif; }
 
-/* ── INTRO (full-width) ── */
 .intro-section {
   padding:56px 60px 48px;
   border-bottom:2px solid var(--border);
@@ -32,7 +31,6 @@ body { background:var(--bg); color:var(--text); font-family:'Inter',-apple-syste
 .intro-stat strong { display:block; font-size:38px; font-weight:900; letter-spacing:-1.5px; color:var(--text); line-height:1; }
 .intro-stat span { font-size:11px; font-weight:600; color:var(--dim); text-transform:uppercase; letter-spacing:.5px; }
 
-/* ── LEGEND BAR ── */
 .legend-bar {
   display:flex; align-items:center; gap:24px;
   padding:12px 60px; background:var(--panel);
@@ -47,16 +45,14 @@ body { background:var(--bg); color:var(--text); font-family:'Inter',-apple-syste
 .leg-diamond { width:9px; height:9px; transform:rotate(45deg); border:2px solid #f97316; background:#fff; flex-shrink:0; }
 .leg-div { width:1.5px; height:20px; background:var(--border); opacity:.25; }
 
-/* ── SCROLLY LAYOUT ── */
 .scrolly-container {
   display:flex;
   align-items:flex-start;
 }
 
-/* MAP — fixed left */
 .map-sticky {
   position:sticky;
-  top:42px; /* legend bar height */
+  top:42px; 
   width:55%;
   height:calc(100vh - 42px);
   flex-shrink:0;
@@ -76,7 +72,6 @@ body { background:var(--bg); color:var(--text); font-family:'Inter',-apple-syste
 .ml-row { display:flex; align-items:center; gap:6px; margin-bottom:4px; color:var(--mid); }
 .ml-dot { width:8px; height:8px; border-radius:50%; flex-shrink:0; }
 
-/* SCROLL STEPS — right panel */
 .scroll-steps {
   width:45%;
   padding:0;
@@ -222,8 +217,9 @@ footer { padding:16px 60px; border-top:2px solid var(--border); font-size:10px; 
       <div class="step-eye">Overview · New York Circuit</div>
       <h2 class="step-title">The validation ecosystem before MoMA</h2>
       <div class="step-body">
-        The findings indicate that MoMA rarely serves as the primary discoverer of unheralded talent. Instead, the museum recognizes artists who have already circulated through a specific validation circuit of galleries, museums, and major art events.<br><br>
-        <strong>Prior institutional validation is a near-mandatory prerequisite:</strong> 87.6% of the analyzed artists had been featured in at least one recognized institution before their MoMA debut. Exposure at a select group of venues accounted for more than 60% of all artist trajectories.
+        56% of MoMA's Painting & Sculpture debuts between 2000 and 2025 arrived via private donation — not curatorial purchase. The curatorial voice peaked in 2018 at 82%, then collapsed to 29% after 2019. Behind these numbers lies a precise ecosystem: 36 key decision-makers and 5 distinct geographic clusters of galleries and institutions in New York where artists build the institutional capital that precedes museum entry. <br><br>
+        This prior validation is a near-mandatory prerequisite: 87.6% of the analyzed artists had been featured in at least one recognized institution before their MoMA debut.
+     
       </div>
     </div>
 
@@ -427,7 +423,7 @@ footer { padding:16px 60px; border-top:2px solid var(--border); font-size:10px; 
       <h2 class="step-title">Who Actually Decides</h2>
       <div class="step-body">
         Collectors have played the most significant role in any artist's access to MoMA's collection — finding, donating, or selling them to the museum. <strong>56% of MoMA's Painting &amp; Sculpture debuts between 2000 and 2025 arrived via private donation.</strong> In contrast, curatorial voice peaked in 2018 at 82%, then dropped to 29% after 2019.<br><br>
-        Among external collectors—those without a formal seat on the board— Patricia Phelps de Cisneros is the most significant case. Based in Caracas, Madrid, and New York, she spent decades building one of the world's largest collections of Latin American art through the Fundación Cisneros. The nine artists she introduced to MoMA—including Cildo Meireles, Beatriz Milhazes, and Gabriel Orozco—came directly from the Brazilian, Venezuelan, and Mexican art scenes, bypassing Chelsea galleries and American biennials. Without her, there would have been no Latin American pipeline into the Painting and Sculpture department during that period.
+       Among external collectors—those without a formal seat on the board— Patricia Phelps de Cisneros is the most significant case. Based in Caracas, Madrid, and New York, she spent decades building one of the world's largest collections of Latin American art through the Fundación Cisneros. The nine artists she introduced to MoMA—including Cildo Meireles, Beatriz Milhazes, and Gabriel Orozco—came directly from the Brazilian, Venezuelan, and Mexican art scenes, bypassing Chelsea galleries and American biennials. Without her, there would have been no Latin American pipeline into the Painting and Sculpture department during that period.
 Jean Pigozzi is the second external collector with a measurable impact. A Geneva-based businessman and photographer, he built the CAAC (Collection d'Art Africain Contemporain) over twenty years alongside curator André Magnin, who had discovered the artists via the 1989 “Magiciens de la Terre” exhibition in Paris. In 2019, he donated 45 works to MoMA in a single batch—the largest individual donation of the period—introducing Bodys Isek Kingelez, Romuald Hazoumè, and Moké into the collection. None of these artists had previously been represented in American institutions prior to the donation. 
 Agnes Gund, the museum’s president emerita for 11 years, is associated with 23 acquisitions during this period—the highest individual volume identified. Ann Temkin, Chief Curator of Painting and Sculpture, controls all institutional purchasing decisions and is linked to 23 acquisitions made via purchase funds. Marie-Josée Kravis, Chair of the Board of Trustees, is associated with 13 acquisitions. Some trustees identified in the research also operate as collectors within the very field where they cast votes are, this is the case of Agnes Gund, Marie-Josée Kravis, Pamela Joyner, and the Ehrenkranz family. 
 
@@ -438,17 +434,11 @@ Agnes Gund, the museum’s president emerita for 11 years, is associated with 23
 </div><!-- end scrolly-container -->
 
 <!-- DM SECTION -->
-<div class="dm-final">
-  <div class="dm-final-eye">Key Decision-Makers · 4 Types · 36 Entities Identified</div>
-  <h2 class="dm-final-title">Who Brings Artists to MoMA</h2>
-  <div class="dm-final-body">
-    Collectors and trustees have played the most significant role in any artist's access to MoMA's permanent collection. The boundary between those who collect art and those who decide what becomes history has all but disappeared. In many cases, the collector doesn't just fund the canon — the collector <em>is</em> the canon.
-  </div>
-  <div class="dm-grid" id="dm-grid"></div>
-</div>
+
 
 <footer>
   <span>MoMA Open Collection · Wikidata · Manual research · 300 Contemporary P&S Debuts 2000–2025 · Lede Program 2026</span>
+  <span style="font-weight:700;color:var(--text)">By: Andréa Rosevell</span>
   <span>Scroll to navigate · Hover nodes for details</span>
 </footer>
 <div class="tooltip" id="tooltip"></div>
@@ -457,6 +447,10 @@ Agnes Gund, the museum’s president emerita for 11 years, is associated with 23
 // ══════════════════════════════════════════════════════════════
 // DATA — preserved from mamamia.html
 // ══════════════════════════════════════════════════════════════
+
+// ── NEIGHBORHOOD BOUNDARIES ────────────────────────────────
+// Real coordinate polygons for each cluster zone
+
 const CHELSEA_BOUNDARY = [
   [-74.00625,40.750067],[-74.007625,40.74796],[-74.008248,40.744787],
   [-74.006969,40.74417],[-74.006905,40.744121],[-74.005515,40.745938],
@@ -464,6 +458,38 @@ const CHELSEA_BOUNDARY = [
   [-74.003932,40.751629],[-74.004684,40.751956],[-74.005754,40.750588],
   [-74.006234,40.750079],[-74.00625,40.750067]
 ];
+
+const LES_BOUNDARY = [
+  [-74.009,40.707],[-74.009,40.727],[-73.982,40.727],
+  [-73.982,40.715],[-73.990,40.710],[-73.995,40.707],[-74.009,40.707]
+];
+
+const QUEENS_BOUNDARY = [
+  [-73.957,40.738],[-73.957,40.754],[-73.932,40.754],
+  [-73.932,40.742],[-73.940,40.738],[-73.957,40.738]
+];
+
+const UES_BOUNDARY = [
+  [-73.972,40.762],[-73.972,40.798],[-73.945,40.798],
+  [-73.945,40.775],[-73.952,40.762],[-73.972,40.762]
+];
+
+const WHITNEY_BOUNDARY = [
+  [-74.018,40.732],[-74.018,40.746],[-73.998,40.746],
+  [-73.998,40.735],[-74.005,40.732],[-74.018,40.732]
+];
+
+const HARLEM_BOUNDARY = [
+  [-73.965,40.795],[-73.965,40.835],[-73.920,40.835],
+  [-73.920,40.820],[-73.930,40.808],[-73.945,40.795],[-73.965,40.795]
+];
+
+const BROOKLYN_BOUNDARY = [
+  [-73.985,40.656],[-73.985,40.688],[-73.944,40.688],
+  [-73.944,40.665],[-73.958,40.656],[-73.985,40.656]
+];
+
+
 
 const CLUSTERS_RAW = [
   {
@@ -481,12 +507,14 @@ const CLUSTERS_RAW = [
   },
   {
     id:'queens', name:'Long Island City', route:'A', lat:40.7455, lng:-73.9378, artistCount:22,
+    boundary: QUEENS_BOUNDARY,
     venues:[
       { id:'moma_ps1', name:'MoMA PS1', type:'museum', lat:40.7455, lng:-73.9378, count:22, route:'A', artists:['Christine Sun Kim','Zhang Huan','Titus Kaphar','Ouattara Watts','Michael Armitage','Kahlil Robert Irving','Walter Price','Donald Moffett','Pacita Abad','Nour Mobarak','Susan Cianciolo','Gavin Jantjes','Josh Smith','Trisha Donnelly','Rivane Neuenschwander','Klara Liden','William Scott','Bodys Isek Kingelez','Zak Prekop','Mika Rottenberg','Jutta Koether','Kelley Walker'] },
     ], dms:[]
   },
   {
     id:'les', name:'Lower East Side', route:'A', lat:40.7180, lng:-73.9990, artistCount:16,
+    boundary: LES_BOUNDARY,
     venues:[
       { id:'new_museum', name:'New Museum', type:'museum', lat:40.7223, lng:-73.9929, count:12, route:'A', artists:['Guadalupe Maravilla','Diamond Stingily','Ouattara Watts','Jana Euler','Christine Sun Kim','Janet Olivia Henry','Jordan Casteel','Paulina Olowska','Dalton Paula','Nari Ward','Rachel Harrison','Abraham Cruzvillegas'] },
       { id:'reena', name:'Reena Spaulings / 47 Canal', type:'gallery', lat:40.7158, lng:-73.9961, count:3, route:'A', artists:['Rosemary Mayer','Susan Cianciolo','Lotus L. Kang'] },
@@ -495,6 +523,7 @@ const CLUSTERS_RAW = [
   },
   {
     id:'ues', name:'Upper East Side', route:'B', lat:40.7780, lng:-73.9580, artistCount:24,
+    boundary: UES_BOUNDARY,
     venues:[
       { id:'guggenheim', name:'Guggenheim Museum', type:'museum', lat:40.7830, lng:-73.9590, count:6, route:'A', artists:['Rashid Johnson','Zhang Huan','Lorna Simpson','Anicka Yi','Kara Walker','Rirkrit Tiravanija'] },
       { id:'asia_society', name:'Asia Society', type:'museum', lat:40.7688, lng:-73.9656, count:5, route:'B', artists:['Zhang Huan','Pacita Abad','Hung Liu','Anne Chu','Danh Vo'] },
@@ -503,12 +532,14 @@ const CLUSTERS_RAW = [
   },
   {
     id:'whitney', name:'Whitney / Meatpacking', route:'B', lat:40.7300, lng:-74.0150, artistCount:14,
+    boundary: WHITNEY_BOUNDARY,
     venues:[
       { id:'whitney', name:'Whitney Museum of American Art', type:'museum', lat:40.7395, lng:-74.0089, count:14, route:'B', artists:['Rashid Johnson','Ouattara Watts','Zhang Huan','Donald Moffett','Lorna Simpson','Carolina Caycedo','Mickalene Thomas','Nicole Eisenman','Kara Walker','Rachel Harrison','Laura Owens','Kerry James Marshall','Anicka Yi','Cecilia Vicuña'] },
     ], dms:[]
   },
   {
     id:'harlem', name:'Harlem Cluster', route:'C', lat:40.8097, lng:-73.9489, artistCount:20,
+    boundary: HARLEM_BOUNDARY,
     venues:[
       { id:'studio_museum', name:'Studio Museum in Harlem', type:'museum', lat:40.8097, lng:-73.9489, count:18, route:'C', artists:['Fred Wilson','Rashid Johnson','Simone Leigh','Titus Kaphar','Jordan Casteel','Lauren Halsey','Nick Cave','Gary Simmons','Kevin Beasley','Senga Nengudi','Maren Hassinger','Diamond Stingily','Suzanne Jackson','William Scott','Ficre Ghebreyesus','Leonardo Drew','Janet Olivia Henry','Mickalene Thomas'] },
       { id:'el_museo', name:'El Museo del Barrio', type:'museum', lat:40.7920, lng:-73.9518, count:3, route:'D', artists:['Guadalupe Maravilla','Carolina Caycedo','Joey Terrill'] },
@@ -517,6 +548,7 @@ const CLUSTERS_RAW = [
   },
   {
     id:'brooklyn', name:'Brooklyn', route:'C', lat:40.6712, lng:-73.9637, artistCount:5,
+    boundary: BROOKLYN_BOUNDARY,
     venues:[
       { id:'brooklyn_museum', name:'Brooklyn Museum', type:'museum', lat:40.6712, lng:-73.9637, count:5, route:'C', artists:['Rashid Johnson','Lorna Simpson','Janet Olivia Henry','Mickalene Thomas','El Anatsui'] },
     ], dms:[]
@@ -578,7 +610,7 @@ const STEP_STATES = {
   6: { mode:'cluster', id:'harlem' },
   7: { mode:'cluster', id:'brooklyn' },
   8: { mode:'world' },
-  9: { mode:'overview_final' },
+  9: { mode:'dm_cards' },
 };
 
 const WORLD_VENUES = [
@@ -653,6 +685,8 @@ function renderMap(state) {
     if(c) drawCluster(svg, c);
   } else if(state.mode === 'world') {
     drawWorld(svg);
+  } else if(state.mode === 'dm_cards') {
+    showDMPanel();
   }
 }
 
@@ -852,47 +886,54 @@ function drawCluster(svg, cluster) {
 }
 
 // ── DM CARDS ──────────────────────────────────────────────
-function buildDMCards() {
-  const confClass = c => ({ critical:'cc', structural:'cs', moderate:'cm', low:'cl' }[c] || 'cl');
-  const confLabel = c => ({ critical:'Critical conflict', structural:'Structural conflict', moderate:'Moderate conflict', low:'Low conflict' }[c] || c);
-  document.getElementById('dm-grid').innerHTML = DM_CARDS.map(d => `
-    <div class="dm-card">
-      <div class="dm-name">${d.name}</div>
-      <div class="dm-role">${d.role}</div>
-      <div class="dm-line"><strong>Type:</strong> ${d.type}</div>
-      <div class="dm-line"><strong>Base:</strong> ${d.base}</div>
-      <div class="dm-n">${d.artists} artists pipeline influence</div>
-      <span class="dm-conf ${confClass(d.conflict)}">${confLabel(d.conflict)}</span>
-      <div class="dm-line" style="margin-top:6px">${d.note}</div>
-    </div>`).join('');
-}
+
 
 // ── WORLD MAP ─────────────────────────────────────────────
-let worldTopoLoaded = false;
+// ── WORLD MAP ─────────────────────────────────────────────
+// Store topo globally so async load only happens once
 let worldTopo = null;
+let worldSvgRef = null;
 
 function drawWorld(svg) {
+  worldSvgRef = svg;
   svg.selectAll('*').remove();
   svg.append('rect').attr('width',W).attr('height',H).attr('fill','#fff');
 
+  // Grid
+  for(let y=0;y<H;y+=40) svg.append('line').attr('x1',0).attr('x2',W).attr('y1',y).attr('y2',y).attr('stroke','rgba(0,51,170,.03)').attr('stroke-width',.8);
+  for(let x=0;x<W;x+=40) svg.append('line').attr('x1',x).attr('x2',x).attr('y1',0).attr('y2',H).attr('stroke','rgba(0,51,170,.03)').attr('stroke-width',.8);
+
   const proj = d3.geoNaturalEarth1().scale(W/5.8).translate([W/2, H/2]);
   const path = d3.geoPath().projection(proj);
-  const col = 'var(--border)';
 
-  function plotOnWorld() {
-    // Venues
+  function renderWorldData(svgTarget) {
+    svgTarget.selectAll('.world-layer').remove();
+    const g = svgTarget.append('g').attr('class','world-layer');
+    const col = 'var(--border)';
+
+    // Country fills
+    if(worldTopo) {
+      g.selectAll('path')
+        .data(topojson.feature(worldTopo, worldTopo.objects.countries).features)
+        .join('path').attr('d', path)
+        .attr('fill','#f4f7fc')
+        .attr('stroke','rgba(0,51,170,.12)')
+        .attr('stroke-width',.7);
+    }
+
+    // Venue nodes
     WORLD_VENUES.forEach(v => {
       const coords = proj([v.lng, v.lat]);
       if(!coords) return;
       const [px,py] = coords;
       const r = Math.max(7, Math.sqrt(v.count)*4);
 
-      svg.append('circle').attr('cx',px).attr('cy',py).attr('r',r+7)
+      g.append('circle').attr('cx',px).attr('cy',py).attr('r',r+7)
         .attr('fill',col).attr('opacity',.06);
 
       if(v.isEvent) {
         const h = r*2, w = r*1.7;
-        svg.append('polygon')
+        g.append('polygon')
           .attr('points',`${px},${py-h*0.65} ${px-w},${py+h*0.35} ${px+w},${py+h*0.35}`)
           .attr('fill','#fff').attr('stroke',col).attr('stroke-width',2)
           .style('cursor','pointer')
@@ -903,7 +944,7 @@ function drawWorld(svg) {
             <div class="tip-note">${v.note}</div>`))
           .on('mouseout', hideTip);
       } else {
-        svg.append('circle').attr('cx',px).attr('cy',py).attr('r',r)
+        g.append('circle').attr('cx',px).attr('cy',py).attr('r',r)
           .attr('fill','#fff').attr('stroke',col).attr('stroke-width',2)
           .style('cursor','pointer')
           .on('mouseover', e => showTip(e, `<div class="tip-name">${v.name}</div>
@@ -914,12 +955,12 @@ function drawWorld(svg) {
           .on('mouseout', hideTip);
       }
 
-      svg.append('text').attr('x',px).attr('y',py+1)
+      g.append('text').attr('x',px).attr('y',py+1)
         .attr('text-anchor','middle').attr('dominant-baseline','middle')
         .attr('fill','var(--text)').attr('font-size',r>10?10:8).attr('font-weight',900)
         .attr('pointer-events','none').text(v.count);
 
-      svg.append('text').attr('x',px).attr('y',py+r+11)
+      g.append('text').attr('x',px).attr('y',py+r+11)
         .attr('text-anchor','middle').attr('fill','var(--dim)')
         .attr('font-size',7).attr('font-weight',700)
         .attr('pointer-events','none').text(v.name);
@@ -931,7 +972,7 @@ function drawWorld(svg) {
       if(!coords) return;
       const [dx,dy] = coords;
       const sz = 7;
-      svg.append('rect')
+      g.append('rect')
         .attr('x',dx-sz).attr('y',dy-sz).attr('width',sz*2).attr('height',sz*2)
         .attr('fill','#fff').attr('stroke','#f97316').attr('stroke-width',2)
         .attr('transform',`rotate(45,${dx},${dy})`)
@@ -942,37 +983,73 @@ function drawWorld(svg) {
           <div class="tip-row"><span class="tip-l">Artists</span><span class="tip-v">${dm.artists}</span></div>
           <div class="tip-note">${dm.note}</div>`))
         .on('mouseout', hideTip);
-      svg.append('text').attr('x',dx+sz+5).attr('y',dy+3)
+      g.append('text').attr('x',dx+sz+5).attr('y',dy+3)
         .attr('fill','#f97316').attr('font-size',7).attr('font-weight',700)
         .attr('pointer-events','none')
         .text(dm.name.split(' ')[0].toUpperCase());
     });
   }
 
+  // If topo already loaded, render immediately
   if(worldTopo) {
-    svg.insert('g','*').selectAll('path')
-      .data(topojson.feature(worldTopo, worldTopo.objects.countries).features)
-      .join('path').attr('d',path)
-      .attr('fill','#f4f7fc').attr('stroke','rgba(0,51,170,.1)').attr('stroke-width',.6);
-    plotOnWorld();
-  } else {
-    // Load topo then plot
-    d3.json('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json')
-      .then(topo => {
-        worldTopo = topo;
-        svg.insert('g','*').selectAll('path')
-          .data(topojson.feature(topo, topo.objects.countries).features)
-          .join('path').attr('d',path)
-          .attr('fill','#f4f7fc').attr('stroke','rgba(0,51,170,.1)').attr('stroke-width',.6);
-        plotOnWorld();
-      })
-      .catch(() => {
-        // Fallback: just plot without basemap
-        svg.append('rect').attr('width',W).attr('height',H)
-          .attr('fill','#f4f7fc').attr('rx',4);
-        plotOnWorld();
-      });
+    renderWorldData(svg);
+    return;
   }
+
+  // Load topo once, then render
+  d3.json('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json')
+    .then(topo => {
+      worldTopo = topo;
+      // Only render if this svg is still the active one
+      renderWorldData(d3.select('#main-svg'));
+    })
+    .catch(() => {
+      // Fallback: render without basemap
+      renderWorldData(d3.select('#main-svg'));
+    });
+}
+
+// ── DM PANEL (replaces map on last step) ──────────────────
+function showDMPanel() {
+  // Hide SVG, show DM panel
+  document.getElementById('main-svg').style.display = 'none';
+  let panel = document.getElementById('dm-map-panel');
+  if(!panel) {
+    panel = document.createElement('div');
+    panel.id = 'dm-map-panel';
+    panel.style.cssText = `
+      position:absolute; top:0; left:0; width:100%; height:100%;
+      overflow-y:auto; padding:32px 28px;
+      background:var(--bg);
+    `;
+    document.querySelector('.map-sticky').appendChild(panel);
+  }
+  panel.style.display = 'block';
+
+  const confClass = c => ({critical:'cc',structural:'cs',moderate:'cm',low:'cl'}[c]||'cl');
+  const confLabel = c => ({critical:'Critical conflict',structural:'Structural conflict',moderate:'Moderate conflict',low:'Low conflict'}[c]||c);
+
+  panel.innerHTML = `
+    <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:var(--red);margin-bottom:14px">
+      Key Decision-Makers · 4 Types · 36 Entities
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+      ${DM_CARDS.map(d => `
+        <div style="background:var(--panel);border:1.5px solid var(--border);padding:14px">
+          <div style="font-size:12px;font-weight:700;text-transform:uppercase;color:var(--text);margin-bottom:3px">${d.name}</div>
+          <div style="font-size:9px;font-weight:700;color:var(--red);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px">${d.role}</div>
+          <div style="font-size:10px;color:var(--dim);margin-bottom:3px"><strong>Base:</strong> ${d.base}</div>
+          <div style="font-size:11px;font-weight:700;color:var(--mid);margin-bottom:4px">${d.artists} artists</div>
+          <span class="dm-conf ${confClass(d.conflict)}">${confLabel(d.conflict)}</span>
+          <div style="font-size:10px;color:var(--dim);margin-top:6px;line-height:1.5">${d.note}</div>
+        </div>`).join('')}
+    </div>`;
+}
+
+function hideDMPanel() {
+  document.getElementById('main-svg').style.display = 'block';
+  const panel = document.getElementById('dm-map-panel');
+  if(panel) panel.style.display = 'none';
 }
 
 // ── SCROLLYTELLING OBSERVER ────────────────────────────────
@@ -988,7 +1065,10 @@ function initScrolly() {
 
         const stepNum = parseInt(entry.target.dataset.step);
         const state = STEP_STATES[stepNum];
-        if(state) renderMap(state);
+        if(state) {
+          if(state.mode !== 'dm_cards') hideDMPanel();
+          renderMap(state);
+        }
       }
     });
   }, {
@@ -1004,7 +1084,6 @@ function initScrolly() {
 window.addEventListener('load', function() {
   initScales();
   renderMap({ mode:'overview' });
-  buildDMCards();
   initScrolly();
 });
 
