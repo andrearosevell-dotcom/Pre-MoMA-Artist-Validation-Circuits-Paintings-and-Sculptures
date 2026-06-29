@@ -1,0 +1,1019 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The MoMA Pipeline</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/3.0.2/topojson.min.js"></script>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+:root {
+  --bg:#ffffff; --panel:#f4f7fc; --border:#0033aa;
+  --text:#001166; --dim:#0033aa; --mid:#4466cc;
+  --light:#b3c7f7; --vlight:#e0e6f5; --red:#ff2211;
+}
+html { scroll-behavior:smooth; }
+body { background:var(--bg); color:var(--text); font-family:'Inter',-apple-system,sans-serif; }
+
+/* ── INTRO (full-width) ── */
+.intro-section {
+  padding:56px 60px 48px;
+  border-bottom:2px solid var(--border);
+  max-width:100%;
+}
+.intro-eye { font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:3px; color:var(--red); margin-bottom:16px; }
+.intro-h1 { font-size:52px; font-weight:900; letter-spacing:-1.5px; text-transform:uppercase; color:var(--text); line-height:.95; margin-bottom:20px; }
+.intro-h1 span { color:var(--red); }
+.intro-sub { font-size:14px; font-weight:600; color:var(--dim); letter-spacing:1.5px; text-transform:uppercase; margin-bottom:28px; }
+.intro-body { font-size:15px; line-height:1.75; color:var(--text); max-width:720px; border-left:3px solid var(--border); padding-left:20px; margin-bottom:32px; }
+.intro-stats { display:flex; gap:40px; flex-wrap:wrap; padding-top:24px; border-top:1px solid var(--light); }
+.intro-stat strong { display:block; font-size:38px; font-weight:900; letter-spacing:-1.5px; color:var(--text); line-height:1; }
+.intro-stat span { font-size:11px; font-weight:600; color:var(--dim); text-transform:uppercase; letter-spacing:.5px; }
+
+/* ── LEGEND BAR ── */
+.legend-bar {
+  display:flex; align-items:center; gap:24px;
+  padding:12px 60px; background:var(--panel);
+  border-bottom:2px solid var(--border); flex-wrap:wrap;
+  position:sticky; top:0; z-index:50;
+}
+.leg-label { font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:1.5px; color:var(--dim); }
+.leg-items { display:flex; gap:16px; align-items:center; flex-wrap:wrap; }
+.leg-item { display:flex; align-items:center; gap:6px; font-size:10px; color:var(--mid); }
+.leg-blob { width:12px; height:12px; border-radius:50%; flex-shrink:0; }
+.leg-circle { width:11px; height:11px; border-radius:50%; border:2px solid var(--border); background:#fff; flex-shrink:0; }
+.leg-diamond { width:9px; height:9px; transform:rotate(45deg); border:2px solid #f97316; background:#fff; flex-shrink:0; }
+.leg-div { width:1.5px; height:20px; background:var(--border); opacity:.25; }
+
+/* ── SCROLLY LAYOUT ── */
+.scrolly-container {
+  display:flex;
+  align-items:flex-start;
+}
+
+/* MAP — fixed left */
+.map-sticky {
+  position:sticky;
+  top:42px; /* legend bar height */
+  width:55%;
+  height:calc(100vh - 42px);
+  flex-shrink:0;
+  border-right:2px solid var(--border);
+  overflow:hidden;
+  background:var(--bg);
+}
+#main-svg { width:100%; height:100%; display:block; }
+
+/* MAP LEGEND */
+.map-leg {
+  position:absolute; bottom:12px; left:12px; z-index:20;
+  background:rgba(255,255,255,.95); border:1.5px solid var(--border);
+  padding:10px 13px; font-size:9px;
+}
+.ml-title { font-weight:700; text-transform:uppercase; letter-spacing:1px; color:var(--dim); margin-bottom:6px; }
+.ml-row { display:flex; align-items:center; gap:6px; margin-bottom:4px; color:var(--mid); }
+.ml-dot { width:8px; height:8px; border-radius:50%; flex-shrink:0; }
+
+/* SCROLL STEPS — right panel */
+.scroll-steps {
+  width:45%;
+  padding:0;
+}
+.step {
+  min-height:100vh;
+  padding:60px 48px;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  border-bottom:1px solid var(--vlight);
+  opacity:.4;
+  transition:opacity .4s;
+}
+.step.active { opacity:1; }
+.step:last-child { border-bottom:none; }
+
+.step-eye { font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:2px; color:var(--red); margin-bottom:12px; }
+.step-title { font-size:26px; font-weight:900; color:var(--text); letter-spacing:-.5px; margin-bottom:16px; line-height:1.1; }
+.step-body { font-size:14px; line-height:1.75; color:var(--mid); margin-bottom:24px; }
+.step-body strong { color:var(--text); font-weight:700; }
+
+/* Venue list in steps */
+.venue-list { margin-top:20px; }
+.venue-item {
+  padding:10px 0;
+  border-bottom:1px solid var(--vlight);
+  display:flex; justify-content:space-between; align-items:flex-start; gap:12px;
+}
+.venue-item:last-child { border-bottom:none; }
+.vi-left { flex:1; }
+.vi-name { font-size:13px; font-weight:700; color:var(--text); margin-bottom:2px; }
+.vi-type { font-size:10px; color:var(--dim); margin-bottom:4px; }
+.vi-artists { font-size:10px; color:var(--mid); line-height:1.5; }
+.vi-right { text-align:right; flex-shrink:0; }
+.vi-count { font-size:22px; font-weight:900; color:var(--text); line-height:1; }
+.vi-route { font-size:9px; font-weight:700; text-transform:uppercase; padding:2px 6px; margin-top:4px; display:inline-block; }
+.ra { background:#dbeafe; color:#1e3a8a; }
+.rb { background:#e0e7ff; color:#312e81; }
+.rc { background:#d1fae5; color:#065f46; }
+.rd { background:#fef3c7; color:#78350f; }
+
+/* MoMA stats bubble */
+.moma-stats { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:20px; }
+.mstat { background:var(--panel); border:1.5px solid var(--border); padding:14px; }
+.mstat-n { font-size:28px; font-weight:900; color:var(--text); letter-spacing:-1px; line-height:1; }
+.mstat-l { font-size:10px; font-weight:600; color:var(--dim); text-transform:uppercase; letter-spacing:.5px; margin-top:4px; }
+
+/* DM cards at bottom */
+.dm-final {
+  padding:56px 60px;
+  border-top:2px solid var(--border);
+  background:var(--bg);
+}
+.dm-final-eye { font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:3px; color:var(--red); margin-bottom:12px; }
+.dm-final-title { font-size:28px; font-weight:900; color:var(--text); letter-spacing:-.5px; margin-bottom:16px; }
+.dm-final-body { font-size:14px; line-height:1.75; color:var(--mid); max-width:760px; border-left:3px solid var(--border); padding-left:20px; margin-bottom:36px; }
+.dm-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:14px; }
+.dm-card { background:var(--panel); border:2px solid var(--border); padding:16px; }
+.dm-name { font-size:14px; font-weight:700; text-transform:uppercase; color:var(--text); margin-bottom:4px; }
+.dm-role { font-size:10px; font-weight:700; color:var(--red); text-transform:uppercase; letter-spacing:.5px; margin-bottom:7px; }
+.dm-line { font-size:11px; color:var(--dim); line-height:1.5; margin-bottom:3px; }
+.dm-n { font-size:11px; font-weight:700; color:var(--mid); margin-top:4px; }
+.dm-conf { display:inline-block; font-size:9px; font-weight:700; text-transform:uppercase; letter-spacing:.5px; padding:2px 6px; margin-top:5px; margin-bottom:5px; }
+.cc { background:#fee2e2; color:#991b1b; }
+.cs { background:#fef3c7; color:#92400e; }
+.cm { background:#e0e7ff; color:#3730a3; }
+.cl { background:#d1fae5; color:#065f46; }
+
+/* TOOLTIP */
+.tooltip { position:fixed; background:#fff; border:2px solid var(--border); padding:11px 14px; pointer-events:none; z-index:200; max-width:260px; display:none; box-shadow:0 6px 20px rgba(0,51,170,.15); }
+.tooltip.visible { display:block; }
+.tip-name { font-size:12px; font-weight:700; text-transform:uppercase; color:var(--text); margin-bottom:6px; padding-bottom:5px; border-bottom:1px solid var(--light); }
+.tip-row { display:flex; justify-content:space-between; gap:10px; margin-bottom:3px; }
+.tip-l { color:var(--dim); font-size:9px; font-weight:600; }
+.tip-v { color:var(--text); font-size:9px; font-weight:700; }
+.tip-note { font-size:9px; color:var(--mid); margin-top:6px; line-height:1.5; border-top:1px solid var(--vlight); padding-top:6px; font-style:italic; }
+
+footer { padding:16px 60px; border-top:2px solid var(--border); font-size:10px; color:var(--dim); display:flex; justify-content:space-between; background:var(--panel); }
+</style>
+</head>
+<body>
+
+<!-- INTRO -->
+<div class="intro-section">
+  <div class="intro-eye">Data Investigation · Lede Program 2026</div>
+  <h1 class="intro-h1">The <span>MoMA</span> Pipeline</h1>
+  <div class="intro-sub">From creation to showcase at the New York's Museum of Modern Art</div>
+  <div class="intro-body">
+    How do artworks actually make their way into MoMA's collection? We mapped the trajectories of 300 contemporary artists who entered MoMA's Painting &amp; Sculpture collection between 2000 and 2025. This investigation traces that ecosystem — outlining the clusters of galleries and institutions where artists build capital, identifying the key decision-makers who transition them between worlds, and charting the five distinct routes — both transparent and opaque — that determine entry into the museum.
+  </div>
+  <div class="intro-stats">
+    <div class="intro-stat"><strong>300</strong><span>Artists mapped</span></div>
+    <div class="intro-stat"><strong>56%</strong><span>Arrived via donation</span></div>
+    <div class="intro-stat"><strong>68%</strong><span>Never showed at MoMA first</span></div>
+    <div class="intro-stat"><strong>5</strong><span>Routes identified</span></div>
+    <div class="intro-stat"><strong>36</strong><span>Decision-makers</span></div>
+  </div>
+</div>
+
+<!-- LEGEND -->
+<div class="legend-bar">
+  <span class="leg-label">Circuit score</span>
+  <div class="leg-items">
+    <div class="leg-item"><div class="leg-blob" style="background:#e0e6f5;border:1px solid #aaa"></div>0</div>
+    <div class="leg-item"><div class="leg-blob" style="background:#b3c7f7"></div>1–2</div>
+    <div class="leg-item"><div class="leg-blob" style="background:#6692f5"></div>3–4</div>
+    <div class="leg-item"><div class="leg-blob" style="background:#1a56f0"></div>5–6</div>
+    <div class="leg-item"><div class="leg-blob" style="background:#001166"></div>7+</div>
+  </div>
+  <div class="leg-div"></div>
+  <div class="leg-items">
+    <div class="leg-item"><div class="leg-circle"></div>Museum/Gallery</div>
+    <div class="leg-item"><div class="leg-diamond"></div>Decision-maker</div>
+  </div>
+  <div class="leg-div"></div>
+  <div class="leg-items">
+    <div class="leg-item"><strong style="font-size:10px">A</strong>&nbsp;Institutional</div>
+    <div class="leg-item"><strong style="font-size:10px">B</strong>&nbsp;Donor/Trustee</div>
+    <div class="leg-item"><strong style="font-size:10px">C</strong>&nbsp;Studio Museum</div>
+    <div class="leg-item"><strong style="font-size:10px">D</strong>&nbsp;Anti-Canonical</div>
+  </div>
+</div>
+
+<!-- SCROLLYTELLING -->
+<div class="scrolly-container">
+
+  <!-- MAP LEFT (sticky) -->
+  <div class="map-sticky">
+    <svg id="main-svg"></svg>
+    <div class="map-leg">
+      <div class="ml-title">Bubble size = artists</div>
+      <div class="ml-row"><div class="ml-dot" style="background:#001166"></div>Largest · darkest</div>
+      <div class="ml-row"><div class="ml-dot" style="background:#99b3f7"></div>Smallest · lightest</div>
+    </div>
+  </div>
+
+  <!-- STEPS RIGHT -->
+  <div class="scroll-steps">
+
+    <!-- STEP 0: Overview -->
+    <div class="step active" data-step="0">
+      <div class="step-eye">Overview · New York Circuit</div>
+      <h2 class="step-title">The validation ecosystem before MoMA</h2>
+      <div class="step-body">
+        The findings indicate that MoMA rarely serves as the primary discoverer of unheralded talent. Instead, the museum recognizes artists who have already circulated through a specific validation circuit of galleries, museums, and major art events.<br><br>
+        <strong>Prior institutional validation is a near-mandatory prerequisite:</strong> 87.6% of the analyzed artists had been featured in at least one recognized institution before their MoMA debut. Exposure at a select group of venues accounted for more than 60% of all artist trajectories.
+      </div>
+    </div>
+
+
+
+    <!-- STEP 2: Chelsea -->
+    <div class="step" data-step="1">
+      <div class="step-eye">Route A · Chelsea Circuit</div>
+      <h2 class="step-title">Chelsea Circuit</h2>
+      <div class="step-body">
+        The Route A epicentre. Ann Temkin's curatorial eye works this circuit. Hauser &amp; Wirth, Greene Naftali, David Zwirner, and Gagosian each have documented pipelines to MoMA. The Buchholz-to-MoMA pipeline (German contemporary) and the Zwirner-to-MoMA pipeline are the most consistent routes identified.
+      </div>
+      <div class="venue-list">
+        <div class="venue-item">
+          <div class="vi-left"><div class="vi-name">Hauser &amp; Wirth</div><div class="vi-type">Gallery</div><div class="vi-artists">Rashid Johnson, Lorna Simpson, Simone Leigh, Kerry James Marshall, Wilhelm Sasnal, Nicole Eisenman</div></div>
+          <div class="vi-right"><div class="vi-count">6</div><span class="vi-route ra">Route A</span></div>
+        </div>
+        <div class="venue-item">
+          <div class="vi-left"><div class="vi-name">Greene Naftali</div><div class="vi-type">Gallery</div><div class="vi-artists">Diamond Stingily, Jana Euler, Monika Baer, Kahlil Robert Irving, Rachel Harrison</div></div>
+          <div class="vi-right"><div class="vi-count">5</div><span class="vi-route ra">Route A</span></div>
+        </div>
+        <div class="venue-item">
+          <div class="vi-left"><div class="vi-name">David Zwirner</div><div class="vi-type">Gallery</div><div class="vi-artists">Noah Davis, Suzan Frecon, Carol Bove, Josh Smith</div></div>
+          <div class="vi-right"><div class="vi-count">4</div><span class="vi-route ra">Route A</span></div>
+        </div>
+        <div class="venue-item">
+          <div class="vi-left"><div class="vi-name">Gagosian Gallery</div><div class="vi-type">Gallery</div><div class="vi-artists">Titus Kaphar, Y.Z. Kami, Lauren Halsey, Helen Marden, Mark Grotjahn</div></div>
+          <div class="vi-right"><div class="vi-count">5</div><span class="vi-route rb">Route B</span></div>
+        </div>
+        <div class="venue-item">
+          <div class="vi-left"><div class="vi-name">Jack Shainman Gallery</div><div class="vi-type">Gallery</div><div class="vi-artists">El Anatsui, Kara Walker, Kerry James Marshall, Barkley L. Hendricks</div></div>
+          <div class="vi-right"><div class="vi-count">4</div><span class="vi-route rb">Route B</span></div>
+        </div>
+        <div class="venue-item">
+          <div class="vi-left"><div class="vi-name">Lehmann Maupin</div><div class="vi-type">Gallery</div><div class="vi-artists">Nari Ward, Simone Leigh, Wangechi Mutu</div></div>
+          <div class="vi-right"><div class="vi-count">3</div><span class="vi-route rb">Route B</span></div>
+        </div>
+        <div class="venue-item">
+          <div class="vi-left"><div class="vi-name">Pace Gallery</div><div class="vi-type">Gallery</div><div class="vi-artists">Fred Wilson, Zhang Huan, Igshaan Adams, Leonardo Drew</div></div>
+          <div class="vi-right"><div class="vi-count">4</div><span class="vi-route rb">Route B</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 3: LES -->
+    <div class="step" data-step="2">
+      <div class="step-eye">Route A · Lower East Side / Tribeca</div>
+      <h2 class="step-title">Lower East Side / Tribeca</h2>
+      <div class="step-body">
+        The downtown alternative. Reena Spaulings, 47 Canal, P·P·O·W operate outside the commercial Chelsea model. New Museum as institutional anchor. Higher Purchase/Fund proportion — curators find artists here before the market does.
+      </div>
+      <div class="venue-list">
+        <div class="venue-item">
+          <div class="vi-left"><div class="vi-name">New Museum</div><div class="vi-type">Museum</div><div class="vi-artists">Guadalupe Maravilla, Diamond Stingily, Ouattara Watts, Jana Euler, Christine Sun Kim, Janet Olivia Henry, Jordan Casteel, Paulina Olowska…</div></div>
+          <div class="vi-right"><div class="vi-count">12</div><span class="vi-route ra">Route A</span></div>
+        </div>
+        <div class="venue-item">
+          <div class="vi-left"><div class="vi-name">Reena Spaulings / 47 Canal</div><div class="vi-type">Gallery</div><div class="vi-artists">Rosemary Mayer, Susan Cianciolo, Lotus L. Kang</div></div>
+          <div class="vi-right"><div class="vi-count">3</div><span class="vi-route ra">Route A</span></div>
+        </div>
+        <div class="venue-item">
+          <div class="vi-left"><div class="vi-name">P·P·O·W Gallery</div><div class="vi-type">Gallery</div><div class="vi-artists">Guadalupe Maravilla</div></div>
+          <div class="vi-right"><div class="vi-count">1</div><span class="vi-route rd">Route D</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 4: Queens / PS1 -->
+    <div class="step" data-step="3">
+      <div class="step-eye">Route A · Long Island City / Queens</div>
+      <h2 class="step-title">MoMA PS1 — The Strongest Institutional Predictor</h2>
+      <div class="step-body">
+        MoMA PS1 is the experimental arm and most direct institutional bridge to the permanent collection. 22 artists passed through PS1 before entering P&amp;S. The PS1 curator and P&amp;S curator share the same institution — a structural connection invisible in the data but decisive.
+      </div>
+      <div class="venue-list">
+        <div class="venue-item">
+          <div class="vi-left"><div class="vi-name">MoMA PS1</div><div class="vi-type">Museum</div><div class="vi-artists">Christine Sun Kim, Zhang Huan, Titus Kaphar, Ouattara Watts, Michael Armitage, Kahlil Robert Irving, Walter Price, Donald Moffett, Pacita Abad, Nour Mobarak, Susan Cianciolo, Gavin Jantjes…</div></div>
+          <div class="vi-right"><div class="vi-count">22</div><span class="vi-route ra">Route A</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 5: UES -->
+    <div class="step" data-step="4">
+      <div class="step-eye">Route B · Upper East Side</div>
+      <h2 class="step-title">Upper East Side</h2>
+      <div class="step-body">
+        Route B concentration. Trustees donate from private collections. Agnes Gund (23 artists), Ehrenkranz (5 artists), Guggenheim as validation hub. The geographic home of MoMA's board network.
+      </div>
+      <div class="venue-list">
+        <div class="venue-item">
+          <div class="vi-left"><div class="vi-name">Guggenheim Museum</div><div class="vi-type">Museum</div><div class="vi-artists">Rashid Johnson, Zhang Huan, Lorna Simpson, Anicka Yi, Kara Walker, Rirkrit Tiravanija</div></div>
+          <div class="vi-right"><div class="vi-count">6</div><span class="vi-route ra">Route A</span></div>
+        </div>
+        <div class="venue-item">
+          <div class="vi-left"><div class="vi-name">Asia Society</div><div class="vi-type">Institution</div><div class="vi-artists">Zhang Huan, Pacita Abad, Hung Liu, Anne Chu, Danh Vo</div></div>
+          <div class="vi-right"><div class="vi-count">5</div><span class="vi-route rb">Route B</span></div>
+        </div>
+        <div class="venue-item">
+          <div class="vi-left"><div class="vi-name">Marian Goodman Gallery</div><div class="vi-type">Gallery</div><div class="vi-artists">Gabriel Orozco, Ernesto Neto, Danh Vo, Adrián Villar Rojas, Nairy Baghramian</div></div>
+          <div class="vi-right"><div class="vi-count">5</div><span class="vi-route ra">Route A</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 6: Whitney -->
+    <div class="step" data-step="5">
+      <div class="step-eye">Route B · Whitney / Meatpacking</div>
+      <h2 class="step-title">Whitney Biennial — The American Art Stamp</h2>
+      <div class="step-body">
+        Whitney Biennial is the strongest single predictor of MoMA acquisition for American artists. 14 of our 300 passed through the Whitney before MoMA. Collectors who attend the Biennial acquire work and donate to MoMA.
+      </div>
+      <div class="venue-list">
+        <div class="venue-item">
+          <div class="vi-left"><div class="vi-name">Whitney Museum of American Art</div><div class="vi-type">Museum</div><div class="vi-artists">Rashid Johnson, Ouattara Watts, Zhang Huan, Donald Moffett, Lorna Simpson, Carolina Caycedo, Mickalene Thomas, Nicole Eisenman, Kara Walker, Rachel Harrison, Laura Owens, Kerry James Marshall, Anicka Yi, Cecilia Vicuña</div></div>
+          <div class="vi-right"><div class="vi-count">14</div><span class="vi-route rb">Route B</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 7: Harlem -->
+    <div class="step" data-step="6">
+      <div class="step-eye">Route C · Harlem</div>
+      <h2 class="step-title">Harlem Cluster</h2>
+      <div class="step-body">
+        Route C hub. Thelma Golden validates at Studio Museum before any donor or MoMA curator sees the work. Freestyle 2001 launched the pipeline. 18 confirmed artists. The only systematic route for Black American artists into MoMA P&amp;S.
+      </div>
+      <div class="venue-list">
+        <div class="venue-item">
+          <div class="vi-left"><div class="vi-name">Studio Museum in Harlem</div><div class="vi-type">Museum</div><div class="vi-artists">Fred Wilson, Rashid Johnson, Simone Leigh, Titus Kaphar, Jordan Casteel, Lauren Halsey, Nick Cave, Gary Simmons, Kevin Beasley, Senga Nengudi, Maren Hassinger, Diamond Stingily, Suzanne Jackson…</div></div>
+          <div class="vi-right"><div class="vi-count">18</div><span class="vi-route rc">Route C</span></div>
+        </div>
+        <div class="venue-item">
+          <div class="vi-left"><div class="vi-name">El Museo del Barrio</div><div class="vi-type">Museum</div><div class="vi-artists">Guadalupe Maravilla, Carolina Caycedo, Joey Terrill</div></div>
+          <div class="vi-right"><div class="vi-count">3</div><span class="vi-route rd">Route D</span></div>
+        </div>
+        <div class="venue-item">
+          <div class="vi-left"><div class="vi-name">Bronx Museum of the Arts</div><div class="vi-type">Museum</div><div class="vi-artists">Simone Leigh (AIM), Guadalupe Maravilla</div></div>
+          <div class="vi-right"><div class="vi-count">2</div><span class="vi-route rc">Route C</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 8: Brooklyn -->
+    <div class="step" data-step="7">
+      <div class="step-eye">Route C · Brooklyn</div>
+      <h2 class="step-title">Brooklyn</h2>
+      <div class="step-body">
+        Brooklyn Museum operates as secondary validation for the Studio Museum pipeline. Artists circulate between Harlem and Brooklyn before MoMA. No independent route to MoMA emerges from Brooklyn alone.
+      </div>
+      <div class="venue-list">
+        <div class="venue-item">
+          <div class="vi-left"><div class="vi-name">Brooklyn Museum</div><div class="vi-type">Museum</div><div class="vi-artists">Rashid Johnson, Lorna Simpson, Janet Olivia Henry, Mickalene Thomas, El Anatsui</div></div>
+          <div class="vi-right"><div class="vi-count">5</div><span class="vi-route rc">Route C</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 8: World overview -->
+    <div class="step" data-step="8">
+      <div class="step-eye">International Validation Circuits · World Overview</div>
+      <h2 class="step-title">The Global Circuit Before MoMA</h2>
+      <div class="step-body">
+        New York is not where validation begins. For most international artists, the path to MoMA runs through a small set of biennials and institutions that operate as the global gatekeepers of contemporary art — and through the collectors and curators who attend them.
+      </div>
+      <div class="venue-list">
+        <div class="venue-item">
+          <div class="vi-left"><div class="vi-name">Venice Biennale</div><div class="vi-type">Venice, Italy · Biennial</div><div class="vi-artists">Most confirmed international circuit. Golden Lion = near-guaranteed MoMA acquisition.</div></div>
+          <div class="vi-right"><div class="vi-count">42</div></div>
+        </div>
+        <div class="venue-item">
+          <div class="vi-left"><div class="vi-name">Documenta</div><div class="vi-type">Kassel, Germany · Biennial</div><div class="vi-artists">Documenta 11 (Enwezor) drove Non-Western acquisitions. dOCUMENTA(13) drove Purchase/Fund.</div></div>
+          <div class="vi-right"><div class="vi-count">28</div></div>
+        </div>
+        <div class="venue-item">
+          <div class="vi-left"><div class="vi-name">Tate Modern</div><div class="vi-type">London, UK · Institution</div><div class="vi-artists">Turbine Hall commission = near-guaranteed MoMA acquisition.</div></div>
+          <div class="vi-right"><div class="vi-count">18</div></div>
+        </div>
+        <div class="venue-item">
+          <div class="vi-left"><div class="vi-name">Turner Prize</div><div class="vi-type">London, UK · Prize</div><div class="vi-artists">12 winners/nominees in our 300. Most underindexed circuit in Wikidata.</div></div>
+          <div class="vi-right"><div class="vi-count">12</div></div>
+        </div>
+        <div class="venue-item">
+          <div class="vi-left"><div class="vi-name">ICA Miami</div><div class="vi-type">Miami, USA · Institution</div><div class="vi-artists">Gateway for Non-Western and Latin American artists entering the US circuit.</div></div>
+          <div class="vi-right"><div class="vi-count">10</div></div>
+        </div>
+        <div class="venue-item">
+          <div class="vi-left"><div class="vi-name">São Paulo Bienal</div><div class="vi-type">São Paulo, Brazil · Biennial</div><div class="vi-artists">Primary Latin American validation. Most arrive via Cisneros collection.</div></div>
+          <div class="vi-right"><div class="vi-count">8</div></div>
+        </div>
+        <div class="venue-item">
+          <div class="vi-left"><div class="vi-name">Sharjah Biennial</div><div class="vi-type">Sharjah, UAE · Biennial</div><div class="vi-artists">Primary validation for MENA and South Asian artists. Growing influence post-2015.</div></div>
+          <div class="vi-right"><div class="vi-count">5</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 9: Collectors closing -->
+    <div class="step" data-step="9">
+      <div class="step-eye">The Decision · Collectors &amp; Trustees</div>
+      <h2 class="step-title">Who Actually Decides</h2>
+      <div class="step-body">
+        Collectors have played the most significant role in any artist's access to MoMA's collection — finding, donating, or selling them to the museum. <strong>56% of MoMA's Painting &amp; Sculpture debuts between 2000 and 2025 arrived via private donation.</strong> In contrast, curatorial voice peaked in 2018 at 82%, then dropped to 29% after 2019.<br><br>
+        Among external collectors—those without a formal seat on the board— Patricia Phelps de Cisneros is the most significant case. Based in Caracas, Madrid, and New York, she spent decades building one of the world's largest collections of Latin American art through the Fundación Cisneros. The nine artists she introduced to MoMA—including Cildo Meireles, Beatriz Milhazes, and Gabriel Orozco—came directly from the Brazilian, Venezuelan, and Mexican art scenes, bypassing Chelsea galleries and American biennials. Without her, there would have been no Latin American pipeline into the Painting and Sculpture department during that period.
+Jean Pigozzi is the second external collector with a measurable impact. A Geneva-based businessman and photographer, he built the CAAC (Collection d'Art Africain Contemporain) over twenty years alongside curator André Magnin, who had discovered the artists via the 1989 “Magiciens de la Terre” exhibition in Paris. In 2019, he donated 45 works to MoMA in a single batch—the largest individual donation of the period—introducing Bodys Isek Kingelez, Romuald Hazoumè, and Moké into the collection. None of these artists had previously been represented in American institutions prior to the donation. 
+Agnes Gund, the museum’s president emerita for 11 years, is associated with 23 acquisitions during this period—the highest individual volume identified. Ann Temkin, Chief Curator of Painting and Sculpture, controls all institutional purchasing decisions and is linked to 23 acquisitions made via purchase funds. Marie-Josée Kravis, Chair of the Board of Trustees, is associated with 13 acquisitions. Some trustees identified in the research also operate as collectors within the very field where they cast votes are, this is the case of Agnes Gund, Marie-Josée Kravis, Pamela Joyner, and the Ehrenkranz family. 
+
+      </div>
+    </div>
+
+  </div><!-- end scroll-steps -->
+</div><!-- end scrolly-container -->
+
+<!-- DM SECTION -->
+<div class="dm-final">
+  <div class="dm-final-eye">Key Decision-Makers · 4 Types · 36 Entities Identified</div>
+  <h2 class="dm-final-title">Who Brings Artists to MoMA</h2>
+  <div class="dm-final-body">
+    Collectors and trustees have played the most significant role in any artist's access to MoMA's permanent collection. The boundary between those who collect art and those who decide what becomes history has all but disappeared. In many cases, the collector doesn't just fund the canon — the collector <em>is</em> the canon.
+  </div>
+  <div class="dm-grid" id="dm-grid"></div>
+</div>
+
+<footer>
+  <span>MoMA Open Collection · Wikidata · Manual research · 300 Contemporary P&S Debuts 2000–2025 · Lede Program 2026</span>
+  <span>Scroll to navigate · Hover nodes for details</span>
+</footer>
+<div class="tooltip" id="tooltip"></div>
+
+<script>
+// ══════════════════════════════════════════════════════════════
+// DATA — preserved from mamamia.html
+// ══════════════════════════════════════════════════════════════
+const CHELSEA_BOUNDARY = [
+  [-74.00625,40.750067],[-74.007625,40.74796],[-74.008248,40.744787],
+  [-74.006969,40.74417],[-74.006905,40.744121],[-74.005515,40.745938],
+  [-74.004268,40.747633],[-74.002893,40.749619],[-74.001982,40.75083],
+  [-74.003932,40.751629],[-74.004684,40.751956],[-74.005754,40.750588],
+  [-74.006234,40.750079],[-74.00625,40.750067]
+];
+
+const CLUSTERS_RAW = [
+  {
+    id:'chelsea', name:'Chelsea Circuit', route:'A', lat:40.7560, lng:-74.0048, artistCount:28,
+    boundary: CHELSEA_BOUNDARY,
+    venues:[
+      { id:'hauser_wirth', name:'Hauser & Wirth', type:'gallery', lat:40.7420, lng:-74.0040, count:6, route:'A', artists:['Rashid Johnson','Lorna Simpson','Simone Leigh','Kerry James Marshall','Wilhelm Sasnal','Nicole Eisenman'] },
+      { id:'greene_naftali', name:'Greene Naftali', type:'gallery', lat:40.7510, lng:-74.0060, count:5, route:'A', artists:['Diamond Stingily','Jana Euler','Monika Baer','Kahlil Robert Irving','Rachel Harrison'] },
+      { id:'david_zwirner', name:'David Zwirner', type:'gallery', lat:40.7460, lng:-74.0090, count:4, route:'A', artists:['Noah Davis','Suzan Frecon','Carol Bove','Josh Smith'] },
+      { id:'gagosian', name:'Gagosian Gallery', type:'gallery', lat:40.7530, lng:-74.0030, count:5, route:'B', artists:['Titus Kaphar','Y.Z. Kami','Lauren Halsey','Helen Marden','Mark Grotjahn'] },
+      { id:'jack_shainman', name:'Jack Shainman Gallery', type:'gallery', lat:40.7390, lng:-74.0065, count:4, route:'B', artists:['El Anatsui','Kara Walker','Kerry James Marshall','Barkley L. Hendricks'] },
+      { id:'lehmann_maupin', name:'Lehmann Maupin', type:'gallery', lat:40.7360, lng:-74.0045, count:3, route:'B', artists:['Nari Ward','Simone Leigh','Wangechi Mutu'] },
+      { id:'pace_chelsea', name:'Pace Gallery', type:'gallery', lat:40.7490, lng:-74.0075, count:4, route:'B', artists:['Fred Wilson','Zhang Huan','Igshaan Adams','Leonardo Drew'] },
+    ], dms:[]
+  },
+  {
+    id:'queens', name:'Long Island City', route:'A', lat:40.7455, lng:-73.9378, artistCount:22,
+    venues:[
+      { id:'moma_ps1', name:'MoMA PS1', type:'museum', lat:40.7455, lng:-73.9378, count:22, route:'A', artists:['Christine Sun Kim','Zhang Huan','Titus Kaphar','Ouattara Watts','Michael Armitage','Kahlil Robert Irving','Walter Price','Donald Moffett','Pacita Abad','Nour Mobarak','Susan Cianciolo','Gavin Jantjes','Josh Smith','Trisha Donnelly','Rivane Neuenschwander','Klara Liden','William Scott','Bodys Isek Kingelez','Zak Prekop','Mika Rottenberg','Jutta Koether','Kelley Walker'] },
+    ], dms:[]
+  },
+  {
+    id:'les', name:'Lower East Side', route:'A', lat:40.7180, lng:-73.9990, artistCount:16,
+    venues:[
+      { id:'new_museum', name:'New Museum', type:'museum', lat:40.7223, lng:-73.9929, count:12, route:'A', artists:['Guadalupe Maravilla','Diamond Stingily','Ouattara Watts','Jana Euler','Christine Sun Kim','Janet Olivia Henry','Jordan Casteel','Paulina Olowska','Dalton Paula','Nari Ward','Rachel Harrison','Abraham Cruzvillegas'] },
+      { id:'reena', name:'Reena Spaulings / 47 Canal', type:'gallery', lat:40.7158, lng:-73.9961, count:3, route:'A', artists:['Rosemary Mayer','Susan Cianciolo','Lotus L. Kang'] },
+      { id:'ppow', name:'P·P·O·W Gallery', type:'gallery', lat:40.7199, lng:-74.0059, count:1, route:'D', artists:['Guadalupe Maravilla'] },
+    ], dms:[]
+  },
+  {
+    id:'ues', name:'Upper East Side', route:'B', lat:40.7780, lng:-73.9580, artistCount:24,
+    venues:[
+      { id:'guggenheim', name:'Guggenheim Museum', type:'museum', lat:40.7830, lng:-73.9590, count:6, route:'A', artists:['Rashid Johnson','Zhang Huan','Lorna Simpson','Anicka Yi','Kara Walker','Rirkrit Tiravanija'] },
+      { id:'asia_society', name:'Asia Society', type:'museum', lat:40.7688, lng:-73.9656, count:5, route:'B', artists:['Zhang Huan','Pacita Abad','Hung Liu','Anne Chu','Danh Vo'] },
+      { id:'marian_goodman', name:'Marian Goodman Gallery', type:'gallery', lat:40.7620, lng:-73.9800, count:5, route:'A', artists:['Gabriel Orozco','Ernesto Neto','Danh Vo','Adrián Villar Rojas','Nairy Baghramian'] },
+    ], dms:['Agnes Gund','Joel & Anne Ehrenkranz']
+  },
+  {
+    id:'whitney', name:'Whitney / Meatpacking', route:'B', lat:40.7300, lng:-74.0150, artistCount:14,
+    venues:[
+      { id:'whitney', name:'Whitney Museum of American Art', type:'museum', lat:40.7395, lng:-74.0089, count:14, route:'B', artists:['Rashid Johnson','Ouattara Watts','Zhang Huan','Donald Moffett','Lorna Simpson','Carolina Caycedo','Mickalene Thomas','Nicole Eisenman','Kara Walker','Rachel Harrison','Laura Owens','Kerry James Marshall','Anicka Yi','Cecilia Vicuña'] },
+    ], dms:[]
+  },
+  {
+    id:'harlem', name:'Harlem Cluster', route:'C', lat:40.8097, lng:-73.9489, artistCount:20,
+    venues:[
+      { id:'studio_museum', name:'Studio Museum in Harlem', type:'museum', lat:40.8097, lng:-73.9489, count:18, route:'C', artists:['Fred Wilson','Rashid Johnson','Simone Leigh','Titus Kaphar','Jordan Casteel','Lauren Halsey','Nick Cave','Gary Simmons','Kevin Beasley','Senga Nengudi','Maren Hassinger','Diamond Stingily','Suzanne Jackson','William Scott','Ficre Ghebreyesus','Leonardo Drew','Janet Olivia Henry','Mickalene Thomas'] },
+      { id:'el_museo', name:'El Museo del Barrio', type:'museum', lat:40.7920, lng:-73.9518, count:3, route:'D', artists:['Guadalupe Maravilla','Carolina Caycedo','Joey Terrill'] },
+      { id:'bronx_museum', name:'Bronx Museum', type:'museum', lat:40.8290, lng:-73.9256, count:2, route:'C', artists:['Simone Leigh','Guadalupe Maravilla'] },
+    ], dms:['Thelma Golden']
+  },
+  {
+    id:'brooklyn', name:'Brooklyn', route:'C', lat:40.6712, lng:-73.9637, artistCount:5,
+    venues:[
+      { id:'brooklyn_museum', name:'Brooklyn Museum', type:'museum', lat:40.6712, lng:-73.9637, count:5, route:'C', artists:['Rashid Johnson','Lorna Simpson','Janet Olivia Henry','Mickalene Thomas','El Anatsui'] },
+    ], dms:[]
+  },
+];
+
+const BLUES = ['#001166','#0033aa','#1a56f0','#2255cc','#4477dd','#6692f5','#99b3f7'];
+const sorted = [...CLUSTERS_RAW].sort((a,b)=>b.artistCount-a.artistCount);
+const CLUSTERS = CLUSTERS_RAW.map(c => {
+  const rank = sorted.findIndex(s=>s.id===c.id);
+  return { ...c, color: BLUES[Math.min(rank, BLUES.length-1)] };
+});
+
+const MOMA = { lat:40.7614, lng:-73.9776 };
+
+const DM_NY = {
+  'Thelma Golden':          { lat:40.8097, lng:-73.9489 },
+  'Agnes Gund':             { lat:40.7736, lng:-73.9566 },
+  'Marie-Josée Kravis':     { lat:40.7535, lng:-74.0019 },
+  'Pamela Joyner':          { lat:40.7450, lng:-74.0030 },
+  'Joel & Anne Ehrenkranz': { lat:40.7688, lng:-73.9656 },
+  'Patricia P. de Cisneros':{ lat:40.7680, lng:-73.9860 },
+  'Lisa & Steven Tananbaum':{ lat:40.7550, lng:-73.9650 },
+  'Lonti Ebers':            { lat:40.7650, lng:-73.9680 },
+};
+
+const DM_DETAILS = {
+  'Thelma Golden':           { role:'Director, Studio Museum in Harlem', artists:18, conflict:'low', note:'PRIMARY GATEKEEPER. Validates Black American artists before any donor or curator. Freestyle 2001 launched the pipeline.' },
+  'Agnes Gund':              { role:'President Emerita MoMA (†2025)', artists:23, conflict:'structural', note:'Largest individual donor footprint — 23 acquisitions over 25 years. Art for Justice Fund 2018 → Kaphar 2020.' },
+  'Marie-Josée Kravis':      { role:'Chair, MoMA Board of Trustees', artists:13, conflict:'critical', note:'Highest governance position. Donates to museum she governs.' },
+  'Pamela Joyner':           { role:'Chair, P&S Acquisitions Committee', artists:5, conflict:'critical', note:'Decides ALL P&S acquisitions AND donates in same field.' },
+  'Joel & Anne Ehrenkranz':  { role:'Trustee', artists:5, conflict:'structural', note:'Fund Temkin\'s salary AND donate "in honor of Ann Temkin."' },
+  'Patricia P. de Cisneros': { role:'External Collector, Fundación Cisneros', artists:9, conflict:'low', note:'Only systematic pipeline for Latin American art at MoMA.' },
+  'Lisa & Steven Tananbaum': { role:'Trustee', artists:3, conflict:'moderate', note:'Strategic modern art donors and board mainstays.' },
+  'Lonti Ebers':             { role:'Trustee', artists:1, conflict:'critical', note:'Donated "in honor of Glenn Lowry" — MoMA Director.' },
+};
+
+const DM_CARDS = [
+  { name:'Thelma Golden', role:'Director, Studio Museum in Harlem', type:'T1 — Gatekeeper', base:'144 W 125th St, Harlem', artists:18, conflict:'low', note:'PRIMARY GATEKEEPER. Validates Black American artists before any donor or curator sees the work. Freestyle 2001 launched the pipeline. Without Golden, there is no systematic route into MoMA for this generation.' },
+  { name:'Agnes Gund', role:'President Emerita MoMA (†2025)', type:'T2 — Trustee Donor', base:'Upper East Side, NY', artists:23, conflict:'structural', note:'Largest individual donor footprint — 23 acquisitions over 25 years. Built contemporary MoMA as President. Art for Justice Fund 2018 → Kaphar donation 2020.' },
+  { name:'Ann Temkin', role:'Chief Curator, Painting & Sculpture', type:'T2 — Internal Curator', base:'MoMA, 11 W 53rd St NY', artists:23, conflict:'structural', note:'Decides ALL Purchase/Fund acquisitions. Ehrenkranz fund her salary AND donate "in honor of Ann Temkin." Every curatorial purchase passes through her.' },
+  { name:'Marie-Josée Kravis', role:'Chair, MoMA Board of Trustees', type:'T2 — Trustee Donor', base:'KKR, 30 Hudson Yards NY', artists:13, conflict:'critical', note:'Highest governance position at MoMA. Donates to museum she governs. 2/13 donations made "in honor of" other trustees.' },
+  { name:'Pamela Joyner', role:'Chair, P&S Acquisitions Committee', type:'T2 — Trustee Donor', base:'San Francisco + Chelsea NY', artists:5, conflict:'critical', note:'Decides ALL P&S acquisitions AND donates in same field. Based in San Francisco. "I gently suggest names curators may have missed."' },
+  { name:'Patricia P. de Cisneros', role:'External Collector, Fundación Cisneros', type:'T3 — External Collector', base:'Caracas / NY / Madrid', artists:9, conflict:'low', note:'Only systematic pipeline for Latin American art at MoMA. 9 artists, all Non-Western. Not a trustee.' },
+  { name:'Joel & Anne Ehrenkranz', role:'Trustee', type:'T2 — Trustee Donor', base:'Asia Society, 725 Park Ave NY', artists:5, conflict:'structural', note:'Fund Chief Curator salary at MoMA AND Whitney simultaneously. Donate "in honor of Ann Temkin" — whose salary they fund.' },
+  { name:'Jean Pigozzi / André Magnin', role:'Collector + Curator, CAAC', type:'T3 — External Collector', base:'Geneva / Paris / NY', artists:3, conflict:'low', note:'Largest single donation of period: 45 works 2019. Artists discovered via Magiciens de la Terre Paris 1989.' },
+  { name:'Lonti Ebers', role:'Trustee', type:'T2 — Trustee Donor', base:'NY', artists:1, conflict:'critical', note:'Donated Mohammed Sami "in honor of Glenn Lowry" — MoMA Director.' },
+  { name:'Thomas Lax', role:'Curator, Painting & Sculpture', type:'T4 — Internal Curator', base:'MoMA, 11 W 53rd St NY', artists:0, conflict:'low', note:'Key for Black and diaspora artists. Won inaugural Noah Davis Prize (Underground Museum) — documented connection to anti-canonical Route D circuit.' },
+];
+
+// Step → map state mapping
+const STEP_STATES = {
+  0: { mode:'overview' },
+  1: { mode:'cluster', id:'chelsea' },
+  2: { mode:'cluster', id:'les' },
+  3: { mode:'cluster', id:'queens' },
+  4: { mode:'cluster', id:'ues' },
+  5: { mode:'cluster', id:'whitney' },
+  6: { mode:'cluster', id:'harlem' },
+  7: { mode:'cluster', id:'brooklyn' },
+  8: { mode:'world' },
+  9: { mode:'overview_final' },
+};
+
+const WORLD_VENUES = [
+  { name:'Venice Biennale', city:'Venice, Italy', lat:45.4408, lng:12.3155, count:42, isEvent:true, note:'Most confirmed international circuit. Golden Lion = near-guaranteed acquisition.' },
+  { name:'Documenta', city:'Kassel, Germany', lat:51.3127, lng:9.4797, count:28, isEvent:true, note:'Documenta 11 (Enwezor) drove Non-Western acquisitions. dOCUMENTA(13) drove Purchase/Fund.' },
+  { name:'Tate Modern', city:'London, UK', lat:51.5076, lng:-0.0994, count:18, isEvent:false, note:'Turbine Hall commission = near-guaranteed MoMA acquisition.' },
+  { name:'Turner Prize', city:'London, UK', lat:51.4980, lng:-0.1245, count:12, isEvent:true, note:'12 winners/nominees in 300. Most underindexed circuit in Wikidata.' },
+  { name:'ICA Miami', city:'Miami, USA', lat:25.7617, lng:-80.1918, count:10, isEvent:false, note:'Gateway for Non-Western and Latin American artists entering US circuit.' },
+  { name:'São Paulo Bienal', city:'São Paulo, Brazil', lat:-23.5878, lng:-46.6576, count:8, isEvent:true, note:'Primary Latin American validation. Most arrive via Cisneros collection.' },
+  { name:'Hammer / Made in LA', city:'Los Angeles, USA', lat:34.0595, lng:-118.4457, count:8, isEvent:false, note:'CalArts pipeline hub. Made in LA biennial feeds Purchase/Fund acquisitions.' },
+  { name:'SFMOMA', city:'San Francisco, USA', lat:37.7857, lng:-122.4011, count:6, isEvent:false, note:'Pamela Joyner (Chair P&S) is also major SFMOMA donor — direct governance link to MoMA.' },
+  { name:'Centre Pompidou', city:'Paris, France', lat:48.8606, lng:2.3522, count:5, isEvent:false, note:'French curatorial validation. Chantal Crousel gallery → Pompidou → MoMA pipeline.' },
+  { name:'Sharjah Biennial', city:'Sharjah, UAE', lat:25.3463, lng:55.4209, count:5, isEvent:true, note:'Primary validation for MENA and South Asian artists.' },
+  { name:'Gwangju Biennale', city:'Gwangju, South Korea', lat:35.1595, lng:126.8526, count:3, isEvent:true, note:'Korean validation circuit. Underindexed in Wikidata.' },
+  { name:'CAAC / Pigozzi Collection', city:'Geneva, Switzerland', lat:46.2044, lng:6.1432, count:3, isEvent:false, note:'Pigozzi donated 45 works 2019 — largest single donation of the period.' },
+];
+
+const WORLD_DMS = [
+  { name:'André Magnin', city:'Paris, France', lat:48.8566, lng:2.3522, role:'Curator, CAAC', note:'Without Magnin, African artists in CAAC do not exist as collectible in Western market.', artists:3 },
+  { name:'Patricia P. de Cisneros', city:'Caracas, Venezuela', lat:10.4806, lng:-66.9036, role:'Collector, Fundación Cisneros', note:'Only systematic pipeline for Latin American art at MoMA. 9 artists, all Non-Western.', artists:9 },
+  { name:'Jean Pigozzi', city:'Geneva, Switzerland', lat:46.2044, lng:6.1432, role:'Collector, CAAC', note:'45 works donated 2019. Non-trustee. Artists discovered Paris 1989.', artists:3 },
+  { name:'Okwui Enwezor', city:'Lagos / Munich', lat:6.5244, lng:3.3792, role:'Documenta 11 (2002) + Venice Biennale (2015)', note:'Structural influence: his curatorial frameworks drove Non-Western acquisitions into MoMA. 12+ artists passed through.', artists:12 },
+  { name:'Pamela Joyner', city:'San Francisco, USA', lat:37.7749, lng:-122.4194, role:'Chair P&S Committee / SFMOMA donor', note:'Based in San Francisco. Chair of MoMA P&S AND major SFMOMA donor — direct governance line.', artists:5 },
+];
+
+// ── SCALES (from mamamia.html — preserved) ──────────────────
+const LAT_MIN=40.62, LAT_MAX=40.87, LNG_MIN=-74.06, LNG_MAX=-73.88;
+let W, H, xS, yS;
+
+function initScales() {
+  const wrapper = document.querySelector('.map-sticky');
+  W = wrapper.clientWidth;
+  H = wrapper.clientHeight;
+  xS = d3.scaleLinear().domain([LNG_MIN,LNG_MAX]).range([30,W-30]);
+  yS = d3.scaleLinear().domain([LAT_MIN,LAT_MAX]).range([H-30,30]);
+}
+
+const ROUTE_COLORS = { A:'#1a56f0', B:'#ff2211', C:'#16a34a', D:'#d97706' };
+
+// ── TOOLTIP ────────────────────────────────────────────────
+const tip = document.getElementById('tooltip');
+function showTip(e, html) {
+  tip.innerHTML = html; tip.classList.add('visible');
+  tip.style.left = Math.min(e.clientX+16,window.innerWidth-280)+'px';
+  tip.style.top = Math.max(e.clientY-10,10)+'px';
+}
+function hideTip() { tip.classList.remove('visible'); }
+document.addEventListener('mousemove', e => {
+  if(tip.classList.contains('visible')) {
+    tip.style.left = Math.min(e.clientX+16,window.innerWidth-280)+'px';
+    tip.style.top = Math.max(e.clientY-10,10)+'px';
+  }
+});
+
+// ── MAP RENDER ─────────────────────────────────────────────
+let currentMode = 'overview';
+let currentClusterId = null;
+
+function renderMap(state) {
+  if(state.mode === currentMode && state.id === currentClusterId) return;
+  currentMode = state.mode;
+  currentClusterId = state.id || null;
+
+  const svg = d3.select('#main-svg');
+  initScales();
+  svg.attr('viewBox',`0 0 ${W} ${H}`);
+
+  if(state.mode === 'overview' || state.mode === 'overview_final') {
+    drawOverview(svg, false);
+  } else if(state.mode === 'cluster') {
+    const c = CLUSTERS.find(x=>x.id===state.id);
+    if(c) drawCluster(svg, c);
+  } else if(state.mode === 'world') {
+    drawWorld(svg);
+  }
+}
+
+function drawOverview(svg, highlightMoma) {
+  svg.selectAll('*').remove();
+  svg.append('rect').attr('width',W).attr('height',H).attr('fill','#fff');
+
+  // Grid
+  for(let y=0;y<H;y+=60) svg.append('line').attr('x1',0).attr('x2',W).attr('y1',y).attr('y2',y).attr('stroke','rgba(0,51,170,.04)').attr('stroke-width',1);
+  for(let x=0;x<W;x+=60) svg.append('line').attr('x1',x).attr('x2',x).attr('y1',0).attr('y2',H).attr('stroke','rgba(0,51,170,.04)').attr('stroke-width',1);
+
+  // Manhattan outline
+  const manhattan = [[40.701,-74.020],[40.710,-74.016],[40.728,-74.016],[40.748,-74.010],[40.762,-74.003],[40.776,-73.998],[40.796,-73.992],[40.820,-73.937],[40.796,-73.927],[40.778,-73.942],[40.760,-73.948],[40.745,-73.971],[40.728,-73.972],[40.710,-73.975],[40.701,-74.020]];
+  svg.append('path')
+    .attr('d', manhattan.map((p,i)=>(i===0?'M':'L')+xS(p[1])+','+yS(p[0])).join(' ')+'Z')
+    .attr('fill','rgba(0,51,170,.03)').attr('stroke','rgba(0,51,170,.18)').attr('stroke-width',1.5).attr('stroke-dasharray','6,4');
+  svg.append('text').attr('x',xS(-73.970)).attr('y',yS(40.756))
+    .attr('text-anchor','middle').attr('fill','rgba(0,51,170,.1)')
+    .attr('font-size',11).attr('font-weight',800).attr('letter-spacing',4).text('MANHATTAN');
+
+  const momaX = xS(MOMA.lng), momaY = yS(MOMA.lat);
+
+  // Flow lines
+  CLUSTERS.forEach(c => {
+    svg.append('line')
+      .attr('x1',xS(c.lng)).attr('y1',yS(c.lat)).attr('x2',momaX).attr('y2',momaY)
+      .attr('stroke',c.color).attr('stroke-width',1)
+      .attr('opacity', highlightMoma ? 0.3 : 0.12)
+      .attr('stroke-dasharray','5,5');
+  });
+
+  // MoMA
+  const momaR = highlightMoma ? 32 : 20;
+  if(highlightMoma) {
+    svg.append('circle').attr('cx',momaX).attr('cy',momaY).attr('r',momaR+16)
+      .attr('fill','var(--red)').attr('opacity',.1);
+  }
+  svg.append('circle').attr('cx',momaX).attr('cy',momaY).attr('r',momaR)
+    .attr('fill','var(--red)').attr('stroke','#fff').attr('stroke-width',2.5);
+  svg.append('text').attr('x',momaX).attr('y',momaY+1)
+    .attr('text-anchor','middle').attr('dominant-baseline','middle')
+    .attr('fill','#fff').attr('font-size', highlightMoma?12:9).attr('font-weight',900)
+    .attr('letter-spacing',.5).attr('pointer-events','none').text('MoMA');
+
+  if(highlightMoma) {
+    // Mini stats around MoMA
+    const stats = [['300 debuts','2000–25',-60,-50],['56% donation','entry type',60,-50],['68% new','to MoMA',-60,50],['5 routes','identified',60,50]];
+    stats.forEach(([n,l,dx,dy]) => {
+      svg.append('text').attr('x',momaX+dx).attr('y',momaY+dy-8)
+        .attr('text-anchor','middle').attr('fill','var(--red)')
+        .attr('font-size',11).attr('font-weight',900).text(n);
+      svg.append('text').attr('x',momaX+dx).attr('y',momaY+dy+6)
+        .attr('text-anchor','middle').attr('fill','var(--dim)')
+        .attr('font-size',8).text(l);
+    });
+  }
+
+  // Cluster bubbles
+  const maxCount = Math.max(...CLUSTERS.map(c=>c.artistCount));
+  CLUSTERS.forEach(c => {
+    const cx = xS(c.lng), cy = yS(c.lat);
+    const r = 22 + (c.artistCount/maxCount)*28;
+
+    svg.append('circle').attr('cx',cx).attr('cy',cy).attr('r',r+10)
+      .attr('fill',c.color).attr('opacity',.07);
+
+    svg.append('circle').attr('cx',cx).attr('cy',cy).attr('r',r)
+      .attr('fill',c.color).attr('fill-opacity',.15)
+      .attr('stroke',c.color).attr('stroke-width',2);
+
+    // Name inside
+    const words = c.name.split(' ');
+    const half = Math.ceil(words.length/2);
+    const l1 = words.slice(0,half).join(' '), l2 = words.slice(half).join(' ');
+    const fs = r>40?10:9;
+    if(l2) {
+      svg.append('text').attr('x',cx).attr('y',cy-fs*0.7).attr('text-anchor','middle').attr('dominant-baseline','middle').attr('fill',c.color).attr('font-size',fs).attr('font-weight',700).attr('pointer-events','none').text(l1.toUpperCase());
+      svg.append('text').attr('x',cx).attr('y',cy+fs*0.9).attr('text-anchor','middle').attr('dominant-baseline','middle').attr('fill',c.color).attr('font-size',fs).attr('font-weight',700).attr('pointer-events','none').text(l2.toUpperCase());
+    } else {
+      svg.append('text').attr('x',cx).attr('y',cy).attr('text-anchor','middle').attr('dominant-baseline','middle').attr('fill',c.color).attr('font-size',fs).attr('font-weight',700).attr('pointer-events','none').text(l1.toUpperCase());
+    }
+    // Count badge
+    svg.append('circle').attr('cx',cx+r*0.66).attr('cy',cy-r*0.66).attr('r',9).attr('fill',c.color).attr('pointer-events','none');
+    svg.append('text').attr('x',cx+r*0.66).attr('y',cy-r*0.66).attr('text-anchor','middle').attr('dominant-baseline','middle').attr('fill','#fff').attr('font-size',8).attr('font-weight',900).attr('pointer-events','none').text(c.artistCount);
+  });
+
+  // DM diamonds
+  Object.entries(DM_NY).forEach(([name,pos]) => {
+    const dx = xS(pos.lng), dy = yS(pos.lat);
+    const sz = 6;
+    svg.append('rect')
+      .attr('x',dx-sz).attr('y',dy-sz).attr('width',sz*2).attr('height',sz*2)
+      .attr('fill','#fff').attr('stroke','#f97316').attr('stroke-width',2)
+      .attr('transform',`rotate(45,${dx},${dy})`)
+      .style('cursor','pointer')
+      .on('mouseover', e => {
+        const d = DM_DETAILS[name];
+        if(!d) return;
+        showTip(e, `<div class="tip-name">${name}</div>
+          <div class="tip-row"><span class="tip-l">Role</span><span class="tip-v" style="color:var(--red)">${d.role}</span></div>
+          <div class="tip-row"><span class="tip-l">Artists</span><span class="tip-v">${d.artists}</span></div>
+          <div class="tip-note">${d.note}</div>`);
+      })
+      .on('mouseout', hideTip);
+    svg.append('text').attr('x',dx+sz+4).attr('y',dy+3)
+      .attr('fill','#f97316').attr('font-size',7).attr('font-weight',700)
+      .attr('pointer-events','none').text(name.split(' ')[0].toUpperCase());
+  });
+}
+
+function drawCluster(svg, cluster) {
+  svg.selectAll('*').remove();
+  svg.append('rect').attr('width',W).attr('height',H).attr('fill','#fff');
+
+  // Bounds
+  const lats = cluster.venues.map(v=>v.lat);
+  const lngs = cluster.venues.map(v=>v.lng);
+  const latSpan = Math.max(...lats)-Math.min(...lats);
+  const lngSpan = Math.max(...lngs)-Math.min(...lngs);
+  const pad = Math.max(0.012, Math.max(latSpan,lngSpan)*0.8);
+  const latMin=Math.min(...lats)-pad, latMax=Math.max(...lats)+pad;
+  const lngMin=Math.min(...lngs)-pad, lngMax=Math.max(...lngs)+pad;
+  const xC = d3.scaleLinear().domain([lngMin,lngMax]).range([60,W-60]);
+  const yC = d3.scaleLinear().domain([latMin,latMax]).range([H-80,60]);
+
+  // Grid
+  for(let y=0;y<H;y+=24) svg.append('line').attr('x1',0).attr('x2',W).attr('y1',y).attr('y2',y).attr('stroke','rgba(0,51,170,.05)').attr('stroke-width',.7);
+  for(let x=0;x<W;x+=24) svg.append('line').attr('x1',x).attr('x2',x).attr('y1',0).attr('y2',H).attr('stroke','rgba(0,51,170,.05)').attr('stroke-width',.7);
+
+  // Neighborhood boundary
+  const boundary = cluster.boundary;
+  if(boundary) {
+    const bPath = boundary.map((p,i) => {
+      const bx = xC(p[0]), by = yC(p[1]);
+      return (i===0?'M':'L')+bx+','+by;
+    }).join(' ')+'Z';
+    svg.append('path').attr('d',bPath)
+      .attr('fill',cluster.color).attr('fill-opacity',.05)
+      .attr('stroke',cluster.color).attr('stroke-width',1.5)
+      .attr('stroke-dasharray','8,5').attr('stroke-opacity',.35);
+  }
+
+  // Arrow → MoMA
+  svg.append('text').attr('x',W-44).attr('y',H/2-7)
+    .attr('text-anchor','middle').attr('fill','var(--red)')
+    .attr('font-size',9).attr('font-weight',700).attr('letter-spacing',1).text('→ MoMA');
+  svg.append('text').attr('x',W-44).attr('y',H/2+8)
+    .attr('text-anchor','middle').attr('fill','rgba(255,34,17,.4)')
+    .attr('font-size',8).text('Midtown');
+
+  // Profile note
+  svg.append('foreignObject').attr('x',12).attr('y',H-60).attr('width',W-24).attr('height',52)
+    .append('xhtml:div')
+    .style('font-size','10px').style('color','rgba(0,17,102,.5)')
+    .style('line-height','1.5').style('font-style','italic')
+    .style('background','rgba(255,255,255,.88)').style('padding','5px 8px')
+    .text(cluster.profileNote || '');
+
+  // Flow lines to MoMA edge
+  cluster.venues.forEach(v => {
+    const vx=xC(v.lng), vy=yC(v.lat);
+    svg.append('line').attr('x1',vx).attr('y1',vy).attr('x2',W-60).attr('y2',H/2)
+      .attr('stroke',cluster.color).attr('stroke-width',.8).attr('opacity',.18).attr('stroke-dasharray','4,4');
+  });
+
+  // Venue nodes
+  cluster.venues.forEach(v => {
+    const vx=xC(v.lng), vy=yC(v.lat);
+    const r = Math.max(18, Math.sqrt(v.count)*9);
+    const col = cluster.color;
+
+    svg.append('circle').attr('cx',vx).attr('cy',vy).attr('r',r+10)
+      .attr('fill',col).attr('opacity',.08);
+    svg.append('circle').attr('cx',vx).attr('cy',vy).attr('r',r)
+      .attr('fill','#fff').attr('stroke',col).attr('stroke-width',2.5)
+      .style('cursor','pointer')
+      .on('mouseover', e => showTip(e, `<div class="tip-name">${v.name}</div>
+        <div class="tip-row"><span class="tip-l">Type</span><span class="tip-v">${v.type}</span></div>
+        <div class="tip-row"><span class="tip-l">Artists pre-MoMA</span><span class="tip-v">${v.count}</span></div>
+        <div class="tip-row"><span class="tip-l">Route</span><span class="tip-v">Route ${v.route}</span></div>
+        <div class="tip-note">${v.artists.slice(0,5).join(', ')}${v.artists.length>5?' +more':''}</div>`))
+      .on('mouseout', hideTip);
+
+    svg.append('text').attr('x',vx).attr('y',vy+.5)
+      .attr('text-anchor','middle').attr('dominant-baseline','middle')
+      .attr('fill',col).attr('font-size',r>24?15:12).attr('font-weight',900)
+      .attr('pointer-events','none').text(v.count);
+    svg.append('text').attr('x',vx).attr('y',vy+r+14)
+      .attr('text-anchor','middle').attr('fill',col)
+      .attr('font-size',10).attr('font-weight',700)
+      .attr('pointer-events','none').text(v.name);
+    svg.append('text').attr('x',vx).attr('y',vy+r+26)
+      .attr('text-anchor','middle').attr('fill',col)
+      .attr('font-size',8).attr('opacity',.65)
+      .attr('pointer-events','none').text('Route '+v.route);
+  });
+}
+
+// ── DM CARDS ──────────────────────────────────────────────
+function buildDMCards() {
+  const confClass = c => ({ critical:'cc', structural:'cs', moderate:'cm', low:'cl' }[c] || 'cl');
+  const confLabel = c => ({ critical:'Critical conflict', structural:'Structural conflict', moderate:'Moderate conflict', low:'Low conflict' }[c] || c);
+  document.getElementById('dm-grid').innerHTML = DM_CARDS.map(d => `
+    <div class="dm-card">
+      <div class="dm-name">${d.name}</div>
+      <div class="dm-role">${d.role}</div>
+      <div class="dm-line"><strong>Type:</strong> ${d.type}</div>
+      <div class="dm-line"><strong>Base:</strong> ${d.base}</div>
+      <div class="dm-n">${d.artists} artists pipeline influence</div>
+      <span class="dm-conf ${confClass(d.conflict)}">${confLabel(d.conflict)}</span>
+      <div class="dm-line" style="margin-top:6px">${d.note}</div>
+    </div>`).join('');
+}
+
+// ── WORLD MAP ─────────────────────────────────────────────
+let worldTopoLoaded = false;
+let worldTopo = null;
+
+function drawWorld(svg) {
+  svg.selectAll('*').remove();
+  svg.append('rect').attr('width',W).attr('height',H).attr('fill','#fff');
+
+  const proj = d3.geoNaturalEarth1().scale(W/5.8).translate([W/2, H/2]);
+  const path = d3.geoPath().projection(proj);
+  const col = 'var(--border)';
+
+  function plotOnWorld() {
+    // Venues
+    WORLD_VENUES.forEach(v => {
+      const coords = proj([v.lng, v.lat]);
+      if(!coords) return;
+      const [px,py] = coords;
+      const r = Math.max(7, Math.sqrt(v.count)*4);
+
+      svg.append('circle').attr('cx',px).attr('cy',py).attr('r',r+7)
+        .attr('fill',col).attr('opacity',.06);
+
+      if(v.isEvent) {
+        const h = r*2, w = r*1.7;
+        svg.append('polygon')
+          .attr('points',`${px},${py-h*0.65} ${px-w},${py+h*0.35} ${px+w},${py+h*0.35}`)
+          .attr('fill','#fff').attr('stroke',col).attr('stroke-width',2)
+          .style('cursor','pointer')
+          .on('mouseover', e => showTip(e, `<div class="tip-name">${v.name}</div>
+            <div class="tip-row"><span class="tip-l">City</span><span class="tip-v">${v.city}</span></div>
+            <div class="tip-row"><span class="tip-l">Type</span><span class="tip-v">Biennial / Prize</span></div>
+            <div class="tip-row"><span class="tip-l">Artists verified</span><span class="tip-v">${v.count}</span></div>
+            <div class="tip-note">${v.note}</div>`))
+          .on('mouseout', hideTip);
+      } else {
+        svg.append('circle').attr('cx',px).attr('cy',py).attr('r',r)
+          .attr('fill','#fff').attr('stroke',col).attr('stroke-width',2)
+          .style('cursor','pointer')
+          .on('mouseover', e => showTip(e, `<div class="tip-name">${v.name}</div>
+            <div class="tip-row"><span class="tip-l">City</span><span class="tip-v">${v.city}</span></div>
+            <div class="tip-row"><span class="tip-l">Type</span><span class="tip-v">Institution</span></div>
+            <div class="tip-row"><span class="tip-l">Artists verified</span><span class="tip-v">${v.count}</span></div>
+            <div class="tip-note">${v.note}</div>`))
+          .on('mouseout', hideTip);
+      }
+
+      svg.append('text').attr('x',px).attr('y',py+1)
+        .attr('text-anchor','middle').attr('dominant-baseline','middle')
+        .attr('fill','var(--text)').attr('font-size',r>10?10:8).attr('font-weight',900)
+        .attr('pointer-events','none').text(v.count);
+
+      svg.append('text').attr('x',px).attr('y',py+r+11)
+        .attr('text-anchor','middle').attr('fill','var(--dim)')
+        .attr('font-size',7).attr('font-weight',700)
+        .attr('pointer-events','none').text(v.name);
+    });
+
+    // DM diamonds
+    WORLD_DMS.forEach(dm => {
+      const coords = proj([dm.lng, dm.lat]);
+      if(!coords) return;
+      const [dx,dy] = coords;
+      const sz = 7;
+      svg.append('rect')
+        .attr('x',dx-sz).attr('y',dy-sz).attr('width',sz*2).attr('height',sz*2)
+        .attr('fill','#fff').attr('stroke','#f97316').attr('stroke-width',2)
+        .attr('transform',`rotate(45,${dx},${dy})`)
+        .style('cursor','pointer')
+        .on('mouseover', e => showTip(e, `<div class="tip-name">${dm.name}</div>
+          <div class="tip-row"><span class="tip-l">Base</span><span class="tip-v">${dm.city}</span></div>
+          <div class="tip-row"><span class="tip-l">Role</span><span class="tip-v" style="color:var(--red)">${dm.role}</span></div>
+          <div class="tip-row"><span class="tip-l">Artists</span><span class="tip-v">${dm.artists}</span></div>
+          <div class="tip-note">${dm.note}</div>`))
+        .on('mouseout', hideTip);
+      svg.append('text').attr('x',dx+sz+5).attr('y',dy+3)
+        .attr('fill','#f97316').attr('font-size',7).attr('font-weight',700)
+        .attr('pointer-events','none')
+        .text(dm.name.split(' ')[0].toUpperCase());
+    });
+  }
+
+  if(worldTopo) {
+    svg.insert('g','*').selectAll('path')
+      .data(topojson.feature(worldTopo, worldTopo.objects.countries).features)
+      .join('path').attr('d',path)
+      .attr('fill','#f4f7fc').attr('stroke','rgba(0,51,170,.1)').attr('stroke-width',.6);
+    plotOnWorld();
+  } else {
+    // Load topo then plot
+    d3.json('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json')
+      .then(topo => {
+        worldTopo = topo;
+        svg.insert('g','*').selectAll('path')
+          .data(topojson.feature(topo, topo.objects.countries).features)
+          .join('path').attr('d',path)
+          .attr('fill','#f4f7fc').attr('stroke','rgba(0,51,170,.1)').attr('stroke-width',.6);
+        plotOnWorld();
+      })
+      .catch(() => {
+        // Fallback: just plot without basemap
+        svg.append('rect').attr('width',W).attr('height',H)
+          .attr('fill','#f4f7fc').attr('rx',4);
+        plotOnWorld();
+      });
+  }
+}
+
+// ── SCROLLYTELLING OBSERVER ────────────────────────────────
+function initScrolly() {
+  const steps = document.querySelectorAll('.step');
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting) {
+        // Deactivate all, activate current
+        steps.forEach(s => s.classList.remove('active'));
+        entry.target.classList.add('active');
+
+        const stepNum = parseInt(entry.target.dataset.step);
+        const state = STEP_STATES[stepNum];
+        if(state) renderMap(state);
+      }
+    });
+  }, {
+    root: null,
+    rootMargin: '-40% 0px -40% 0px', // trigger when step is in middle 20%
+    threshold: 0
+  });
+
+  steps.forEach(step => observer.observe(step));
+}
+
+// ── INIT ──────────────────────────────────────────────────
+window.addEventListener('load', function() {
+  initScales();
+  renderMap({ mode:'overview' });
+  buildDMCards();
+  initScrolly();
+});
+
+window.addEventListener('resize', function() {
+  initScales();
+  const state = STEP_STATES[currentMode === 'cluster' ?
+    Object.keys(STEP_STATES).find(k => STEP_STATES[k].id === currentClusterId) : 0] || { mode:'overview' };
+  renderMap(state);
+});
+</script>
+</body>
+</html>
