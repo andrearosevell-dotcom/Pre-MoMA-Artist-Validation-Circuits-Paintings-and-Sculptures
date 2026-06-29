@@ -1,8 +1,19 @@
-From creation to show case at the New York’s Museum of Modern Art: How do artworks actually make their way into the MoMA's collection? 
-We mapped the trajectories of 300 contemporary artists who entered MoMA's Painting & Sculpture collection between 2000 and 2025. 
+From creation to show case at the New York’s Museum of Modern Art: How do contemporary artworks actually make their way into the MoMA's collection? 
+
+I mapped the trajectories of 300 contemporary artists who entered MoMA's Painting & Sculpture collection between 2000 and 2025 to answer this question. 
+
 This map traces that ecosystem, outlining the clusters of galleries and institutions where artists build capital, identifying the key decision-makers who transition them between sectors, and charting the five distinct routes—both transparent and opaque—that determine entry into the museum. 
+
 P&S is MoMA’s founding department (1929)—the oldest, most prestigious, and most publicly visible. P&S works are the ones that define the museum’s canon: Picasso, Matisse, Pollock, de Kooning, Warhol.
+
+Methodology:
 The project combines data analysis of MoMA’s open collection, validation via Wikidata, and manual research to reconstruct institutional paths, donor networks, and acquisition patterns over a 25-year period.
+
 Data Collection and Analysis
 Collection: Primary data were extracted from the public MoMA collection repository on GitHub (github.com/MuseumofModernArt/collection), which contains 160,597 artworks and 15,921 artists in CSV format. Biographical data, awards, events, and institutional affiliations were collected via the Wikidata API (SPARQL queries + wbgetentities) for the 533 artists in the initial dataset. Historical exhibition data were obtained by scraping the MoMA exhibition archive (moma.org/calendar/exhibitions/history), resulting in 3,217 records spanning 1929 to 2025. For artists not covered in Wikidata—who accounted for 80% of the false negatives in the verified set—manual research was conducted using Wikipedia, gallery websites, biennial catalogs, and databases such as Artsy and Artfacts.
+
 Analysis: Analysis was performed using Python with Pandas for dataset manipulation and cross-referencing, D3.js for interactive geographic visualizations, and Matplotlib/Seaborn for analytical charts. The dataset was filtered to include 300 artists born in or after 1940 whose debut at MoMA occurred between 2000 and 2025. Each artist was assigned a "circuit score" from 0 to 10 based on external validations confirmed prior to their MoMA debut. Entry pathways were classified into five categories (A: Institutional/Curatorial; B: Donor/Trustee; C: Studio Museum Pipeline; D: Anti-Canonical; E: No verified circuit) based on a combination of credit lines, pre-MoMA exhibition history, and identified donor networks.
+
+Data Visualization: I used the `geopy` for geocoding, converting location data for artists and circuits into precise geographic coordinates for mapping. After processing the data with Pandas, I used Datawrapper to create an interactive maps. I used Adobe Illustrator for the map and to refine the narrative's visual presentation, combining data precision with an editorial design layer that enhances the reading experience on both desktop and mobile devices.
+
+Skills applied: Python · Pandas · Web scraping · APIs (Wikidata SPARQL) · Git/GitHub · D3.js · Datawrapper · HTML · geojson.io · Adobe Illustrator — covering the full cycle of collection, analysis, visualization, and publication.
