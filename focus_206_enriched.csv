@@ -1,0 +1,207 @@
+Artist,first_year,decade,gender,geo,entry_type,birth_year,total_works,age_at_debut_clean,is_posthumous,wd_n_awards,wd_n_events,wd_n_edu,wd_total,guggenheim,macarthur,anon_woman,documenta,yale,calarts,risd,golden_lion,turner
+Abdoulaye Konaté,2022,2020,Male,Non-Western / Global South,Purchase/Fund,1953.0,1,69.0,False,2,1,1,4,False,False,False,True,False,False,False,False,False
+Abraham Cruzvillegas,2011,2010,Male,Non-Western / Global South,Purchase/Fund,1968.0,1,43.0,False,1,1,0,2,False,False,False,True,False,False,False,False,False
+Adrian Piper,2011,2010,Female,American,Gift/Donation,1948.0,2,63.0,False,4,1,4,9,True,False,False,True,False,False,False,True,False
+Adrián Villar Rojas,2013,2010,Male,Non-Western / Global South,Purchase/Fund,1980.0,1,33.0,False,0,1,0,1,False,False,False,True,False,False,False,False,False
+Albert Oehlen,2011,2010,Male,European,Purchase/Fund,1954.0,1,57.0,False,0,0,1,1,False,False,False,False,False,False,False,False,False
+Alex Israel,2014,2010,Male,American,Gift/Donation,1982.0,1,32.0,False,0,0,3,3,False,False,False,False,True,False,False,False,False
+Alfredo Jaar,2010,2010,Male,Non-Western / Global South,Purchase/Fund,1956.0,3,54.0,False,5,3,1,9,True,False,False,True,False,False,False,False,False
+Amy Sillman,2007,2000,Female,American,Purchase/Fund,1955.0,2,52.0,False,3,0,1,4,True,False,False,False,False,False,False,False,False
+Analia Saban,2022,2020,Female,Non-Western / Global South,Purchase/Fund,1980.0,1,42.0,False,0,0,2,2,False,False,False,False,False,False,False,False,False
+Anne Chu,2023,2020,Female,American,Purchase/Fund,1959.0,2,64.0,True,2,0,2,4,True,False,True,False,False,False,False,False,False
+Anne Imhof,2023,2020,Female,European,Purchase/Fund,1978.0,2,45.0,False,3,0,0,3,False,False,False,False,False,False,False,True,False
+Barbara Rossi,2021,2020,Female,American,Gift/Donation,1940.0,1,81.0,False,1,0,1,2,False,False,False,False,False,False,False,False,False
+Barkley L. Hendricks,2018,2010,Male,American,Purchase/Fund,1945.0,1,73.0,True,0,0,3,3,False,False,False,False,True,False,False,False,False
+Beatriz Milhazes,2002,2000,Female,Non-Western / Global South,Gift/Donation,1960.0,1,42.0,False,1,0,2,3,False,False,False,False,False,False,False,False,False
+Bodys Isek Kingelez,2019,2010,Male,Non-Western / Global South,Gift/Donation,1948.0,3,71.0,True,0,1,0,1,False,False,False,True,False,False,False,False,False
+Braco Dimitrijević,2011,2010,Male,European,Gift/Donation,1948.0,2,63.0,False,0,2,1,3,False,False,False,True,False,False,False,False,False
+Cady Noland,2005,2000,Female,American,Purchase/Fund,1956.0,2,49.0,False,0,1,1,2,False,False,False,True,False,False,False,False,False
+Cameron Rowland,2016,2010,Male,American,Purchase/Fund,1988.0,3,28.0,False,1,0,1,2,False,True,False,False,False,False,False,False,False
+Camille Henrot,2015,2010,Female,European,Gift/Donation,1978.0,2,37.0,False,2,0,1,3,False,False,False,False,False,False,False,False,False
+Carlos Almaraz,2024,2020,Male,American,Exchange,1941.0,1,83.0,True,0,0,6,6,False,False,False,False,False,False,False,False,False
+Carlos Zilio,2014,2010,Male,Non-Western / Global South,Purchase/Fund,1944.0,1,70.0,False,0,0,1,1,False,False,False,False,False,False,False,False,False
+Carol Bove,2006,2000,Female,American,Purchase/Fund,1971.0,7,35.0,False,0,1,1,2,False,False,False,True,False,False,False,False,False
+Carolina Caycedo,2022,2020,Female,Non-Western / Global South,Gift/Donation,1978.0,1,44.0,False,2,0,2,4,False,False,True,False,False,False,False,False,False
+Cathy Wilkes,2012,2010,Female,European,Gift/Donation,1966.0,1,46.0,False,0,0,2,2,False,False,False,False,False,False,False,False,False
+Cecilia Vicuña,2018,2010,Female,Non-Western / Global South,Purchase/Fund,1948.0,1,70.0,False,4,1,3,8,False,False,True,True,False,False,False,True,False
+Cecily Brown,2018,2010,Female,European,Gift/Donation,1969.0,1,49.0,False,0,0,2,2,False,False,False,False,False,False,False,False,False
+Charline von Heyl,2010,2010,Female,European,Purchase/Fund,1960.0,1,50.0,False,0,0,0,0,False,False,False,False,False,False,False,False,False
+Chen Zhen,2015,2010,Male,Non-Western / Global South,Gift/Donation,1955.0,5,60.0,True,0,0,0,0,False,False,False,False,False,False,False,False,False
+Christine Sun Kim,2021,2020,Female,American,Purchase/Fund,1980.0,1,41.0,False,1,0,3,4,False,False,False,False,False,False,False,False,False
+Chéri Samba,2002,2000,Male,Non-Western / Global South,Gift/Donation,1956.0,3,46.0,False,1,0,0,1,False,False,False,False,False,False,False,False,False
+Cildo Meireles,2001,2000,Male,Non-Western / Global South,Gift/Donation,1948.0,5,53.0,False,3,2,0,5,True,False,False,True,False,False,False,False,False
+Dalton Paula,2020,2020,Male,Non-Western / Global South,Gift/Donation,1982.0,6,38.0,False,0,0,1,1,False,False,False,False,False,False,False,False,False
+Dan Graham,2011,2010,Male,American,Gift/Donation,1942.0,3,69.0,False,0,6,0,6,False,False,False,True,False,False,False,False,False
+Dana Schutz,2005,2000,Female,American,Gift/Donation,1976.0,1,29.0,False,0,0,2,2,False,False,False,False,False,False,False,False,False
+Danh Vo,2010,2010,Male,European,Gift/Donation,1975.0,1,35.0,False,1,0,1,2,False,False,False,False,False,False,False,False,False
+David Diao,2024,2020,Male,American,Purchase/Fund,1943.0,1,81.0,False,1,0,1,2,True,False,False,False,False,False,False,False,False
+David Reed,2017,2010,Male,American,Purchase/Fund,1946.0,1,71.0,False,1,0,3,4,True,False,False,False,False,False,False,False,False
+Denise Green,2014,2010,Female,Anglo other,Gift/Donation,1946.0,1,68.0,False,1,0,2,3,False,False,False,False,False,False,False,False,False
+Diamond Stingily,2021,2020,Female,American,Purchase/Fund,1990.0,3,31.0,False,0,0,1,1,False,False,False,False,False,False,False,False,False
+Didier Vermeiren,2011,2010,Male,European,Gift/Donation,1951.0,1,60.0,False,0,0,2,2,False,False,False,False,False,False,False,False,False
+Do Ho Suh,2016,2010,Male,Non-Western / Global South,Gift/Donation,1962.0,1,54.0,False,1,0,2,3,False,False,False,False,True,False,False,False,False
+Eberhard Havekost,2005,2000,Male,European,Gift/Donation,1967.0,1,38.0,False,0,0,1,1,False,False,False,False,False,False,False,False,False
+Eduardo Costa,2009,2000,Male,Non-Western / Global South,Gift/Donation,1940.0,2,69.0,False,0,0,0,0,False,False,False,False,False,False,False,False,False
+El Anatsui,2008,2000,Male,Non-Western / Global South,Gift/Donation,1944.0,1,64.0,False,3,0,1,4,False,False,False,False,False,False,False,False,False
+Elizabeth Peyton,2000,2000,Female,American,Gift/Donation,1965.0,4,35.0,False,0,0,1,1,False,False,False,False,False,False,False,False,False
+Ernesto Neto,2007,2000,Male,Non-Western / Global South,Gift/Donation,1964.0,1,43.0,False,1,0,2,3,False,False,False,False,False,False,False,False,False
+Eugenio Espinoza,2017,2010,Male,Non-Western / Global South,Gift/Donation,1950.0,1,67.0,False,1,0,4,5,True,False,False,False,False,False,False,False,False
+Ficre Ghebreyesus,2024,2020,Male,American,Gift/Donation,1962.0,1,62.0,True,0,0,2,2,False,False,False,False,True,False,False,False,False
+Fred Eversley,2017,2010,Male,American,Purchase/Fund,1941.0,1,76.0,False,0,0,1,1,False,False,False,False,False,False,False,False,False
+Fred Wilson,2019,2010,Male,American,Gift/Donation,1954.0,1,65.0,False,2,1,2,5,False,True,False,False,False,False,False,False,False
+Gabriel Orozco,2001,2000,Male,Non-Western / Global South,Gift/Donation,1962.0,6,39.0,False,0,2,1,3,False,False,False,True,False,False,False,False,False
+Gabriel Sierra,2017,2010,Male,Non-Western / Global South,Purchase/Fund,1975.0,1,42.0,False,0,0,1,1,False,False,False,False,False,False,False,False,False
+Gavin Jantjes,2022,2020,Male,Non-Western / Global South,Gift/Donation,1948.0,1,74.0,False,0,0,2,2,False,False,False,False,False,False,False,False,False
+General Idea,2018,2010,Male,Anglo other,Purchase/Fund,1969.0,1,49.0,True,0,3,0,3,False,False,False,True,False,False,False,False,False
+George Condo,2010,2010,Male,American,Gift/Donation,1957.0,3,53.0,False,0,0,1,1,False,False,False,False,False,False,False,False,False
+Gladys Nilsson,2018,2010,Female,American,Gift/Donation,1940.0,1,78.0,False,0,0,2,2,False,False,False,False,False,False,False,False,False
+Guadalupe Maravilla,2019,2010,Male,Non-Western / Global South,Purchase/Fund,1976.0,3,43.0,False,2,0,0,2,True,False,False,False,False,False,False,False,False
+Haegue Yang,2010,2010,Female,Non-Western / Global South,Gift/Donation,1971.0,1,39.0,False,3,1,0,4,False,False,False,True,False,False,False,False,False
+Haim Steinbach,2016,2010,Male,American,Purchase/Fund,1944.0,2,72.0,False,0,1,2,3,False,False,False,True,True,False,False,False,False
+Hannah Wilke,2008,2000,Female,American,Gift/Donation,1940.0,2,68.0,True,1,0,1,2,True,False,False,False,False,False,False,False,False
+Helen Marden,2019,2010,Female,American,Gift/Donation,1941.0,1,78.0,False,0,0,1,1,False,False,False,False,False,False,False,False,False
+Helen Marten,2022,2020,Female,European,Purchase/Fund,1985.0,1,37.0,False,3,0,4,7,False,False,False,False,False,False,False,False,True
+Henry Taylor,2012,2010,Male,American,Purchase/Fund,1958.0,2,54.0,False,0,0,1,1,False,False,False,False,False,True,False,False,False
+Howardena Pindell,2014,2010,Female,American,Gift/Donation,1943.0,1,71.0,False,3,0,5,8,True,False,True,False,True,False,False,False,False
+Huang Yong Ping,2018,2010,Male,European,Purchase/Fund,1954.0,2,64.0,False,1,0,1,2,False,False,False,False,False,False,False,False,False
+Huma Bhabha,2011,2010,Female,American,Gift/Donation,1962.0,2,49.0,False,1,0,3,4,False,False,False,False,False,False,True,False,False
+Hung Liu,2022,2020,Female,American,Gift/Donation,1948.0,1,74.0,True,2,0,3,5,False,False,False,False,False,False,False,False,False
+Hüseyin Bahri Alptekin,2012,2010,Male,Non-Western / Global South,Purchase/Fund,1957.0,7,55.0,True,0,0,1,1,False,False,False,False,False,False,False,False,False
+Iman Issa,2016,2010,Female,Non-Western / Global South,Purchase/Fund,1979.0,3,37.0,False,3,2,3,8,False,False,False,False,False,False,False,False,False
+Iran do Espirito Santo,2022,2020,Male,Non-Western / Global South,Gift/Donation,1963.0,1,59.0,False,0,0,1,1,False,False,False,False,False,False,False,False,False
+Isa Genzken,2011,2010,Female,European,Purchase/Fund,1948.0,6,63.0,False,1,3,2,6,False,False,False,True,False,False,False,False,False
+Jack Goldstein,2015,2010,Male,Anglo other,Gift/Donation,1945.0,1,70.0,True,0,2,2,4,False,False,False,True,False,True,False,False,False
+Jan Dibbets,2013,2010,Male,European,Gift/Donation,1941.0,1,72.0,False,2,3,0,5,False,False,False,True,False,False,False,False,False
+Jan Vercruysse,2013,2010,Male,European,Gift/Donation,1948.0,1,65.0,False,0,1,0,1,False,False,False,True,False,False,False,False,False
+Jana Euler,2021,2020,Female,European,Purchase/Fund,1982.0,1,39.0,False,1,0,1,2,False,False,False,False,False,False,False,False,False
+Janet Olivia Henry,2023,2020,Female,American,Gift/Donation,1947.0,1,76.0,False,0,0,2,2,False,False,False,False,False,False,False,False,False
+Janine Antoni,2000,2000,Female,Non-Western / Global South,Purchase/Fund,1964.0,2,36.0,False,3,0,2,5,True,True,True,False,False,False,True,False,False
+Jayson Musson,2013,2010,Male,American,Gift/Donation,1977.0,1,36.0,False,0,0,4,4,False,False,False,False,False,False,False,False,False
+Jean-Luc Moulène,2018,2010,Male,European,Purchase/Fund,1955.0,2,63.0,False,1,1,0,2,False,False,False,True,False,False,False,False,False
+Jimmie Durham,2013,2010,Male,American,Purchase/Fund,1940.0,2,73.0,False,0,2,0,2,False,False,False,True,False,False,False,False,False
+Joe Bradley,2011,2010,Male,American,Gift/Donation,1975.0,3,36.0,False,0,0,1,1,False,False,False,False,False,False,True,False,False
+Joey Terrill,2021,2020,Male,American,Gift/Donation,1955.0,1,66.0,False,0,0,2,2,False,False,False,False,False,False,False,False,False
+John Currin,2004,2000,Male,American,Gift/Donation,1962.0,2,42.0,False,0,0,4,4,False,False,False,False,True,False,False,False,False
+Jordan Casteel,2021,2020,Female,American,Gift/Donation,1989.0,1,32.0,False,1,0,2,3,False,True,False,False,True,False,False,False,False
+Jorge Macchi,2017,2010,Male,Non-Western / Global South,Gift/Donation,1963.0,1,54.0,False,1,0,0,1,True,False,False,False,False,False,False,False,False
+Josh Smith,2009,2000,Male,American,Purchase/Fund,1976.0,7,33.0,False,0,0,1,1,False,False,False,False,False,False,False,False,False
+Josiah McElheny,2003,2000,Male,American,Gift/Donation,1966.0,1,37.0,False,2,0,1,3,False,True,False,False,False,False,True,False,False
+José Leonilson,2001,2000,Male,Non-Western / Global South,Gift/Donation,1957.0,2,44.0,True,0,0,1,1,False,False,False,False,False,False,False,False,False
+José Resende,2017,2010,Male,Non-Western / Global South,Gift/Donation,1945.0,1,72.0,False,1,1,0,2,True,False,False,True,False,False,False,False,False
+Julian Lethbridge,2021,2020,Male,European,Gift/Donation,1947.0,1,74.0,False,0,0,1,1,False,False,False,False,False,False,False,False,False
+Julian Schnabel,2015,2010,Male,American,Gift/Donation,1951.0,3,64.0,False,0,0,2,2,False,False,False,False,False,False,False,False,False
+Julie Mehretu,2004,2000,Female,American,Purchase/Fund,1970.0,2,34.0,False,2,1,3,6,False,True,False,True,False,False,True,False,False
+Jutta Koether,2010,2010,Female,European,Purchase/Fund,1958.0,2,52.0,False,0,0,1,1,False,False,False,False,False,False,False,False,False
+Ján Mančuška,2013,2010,Male,European,Gift/Donation,1972.0,1,41.0,True,0,0,0,0,False,False,False,False,False,False,False,False,False
+Kaari Upson,2017,2010,Female,American,Purchase/Fund,1970.0,1,47.0,False,0,0,2,2,False,False,False,False,False,True,False,False,False
+Kai Althoff,2008,2000,Male,European,Gift/Donation,1966.0,4,42.0,False,0,1,0,1,False,False,False,True,False,False,False,False,False
+Kara Walker,2007,2000,Female,American,Gift/Donation,1969.0,4,38.0,False,2,0,1,3,False,True,False,False,False,False,True,False,False
+Keith Haring,2025,2020,Male,American,Unknown,1958.0,1,67.0,True,0,3,3,6,False,False,False,True,False,False,False,False,False
+Kelley Walker,2008,2000,Male,American,Purchase/Fund,1969.0,3,39.0,False,0,0,2,2,False,False,False,False,False,False,False,False,False
+Kerry James Marshall,2015,2010,Male,American,Gift/Donation,1955.0,2,60.0,False,1,2,1,4,False,True,False,True,False,False,False,False,False
+Kerstin Brätsch,2011,2010,Female,European,Purchase/Fund,1979.0,3,32.0,False,1,0,1,2,False,False,False,False,False,False,False,False,False
+Kevin Beasley,2016,2010,Male,American,Gift/Donation,1985.0,1,31.0,False,1,0,1,2,False,False,False,False,True,False,False,False,False
+Kim Beom,2016,2010,Male,Non-Western / Global South,Purchase/Fund,1963.0,1,53.0,False,0,0,3,3,False,False,False,False,False,False,False,False,False
+Klara Liden,2012,2010,Female,European,Purchase/Fund,1979.0,1,33.0,False,0,0,3,3,False,False,False,False,False,False,False,False,False
+Laddie John Dill,2010,2010,Male,American,Bequest,1943.0,1,67.0,False,1,0,1,2,True,False,False,False,False,False,False,False,False
+Lari Pittman,2014,2010,Male,American,Gift/Donation,1952.0,2,62.0,False,0,1,3,4,False,False,False,True,False,True,False,False,False
+Laura Owens,2013,2010,Female,American,Purchase/Fund,1970.0,3,43.0,False,2,0,2,4,False,False,False,False,False,True,True,False,False
+Lauren Halsey,2022,2020,Female,American,Purchase/Fund,1987.0,2,35.0,False,0,0,2,2,False,False,False,False,True,True,False,False,False
+Liam Gillick,2008,2000,Male,European,Purchase/Fund,1964.0,2,44.0,False,0,1,1,2,False,False,False,True,False,False,False,False,False
+Lisa Yuskavage,2004,2000,Female,American,Gift/Donation,1962.0,2,42.0,False,0,0,4,4,False,False,False,False,True,False,False,False,False
+Liz Deschenes,2012,2010,Female,American,Purchase/Fund,1966.0,1,46.0,False,1,0,1,2,False,False,True,False,False,False,True,False,False
+Lorna Simpson,2022,2020,Female,American,Gift/Donation,1960.0,1,62.0,False,2,1,3,6,False,False,True,True,False,False,False,False,False
+Lotus L. Kang,2025,2020,Female,Anglo other,Unknown,1985.0,1,40.0,False,1,0,0,1,True,False,False,False,False,False,False,False,False
+Luis Frangella,2022,2020,Male,Non-Western / Global South,Gift/Donation,1944.0,1,78.0,True,1,0,1,2,True,False,False,False,False,False,False,False,False
+Lynette Yiadom-Boakye,2014,2010,Female,European,Gift/Donation,1977.0,4,37.0,False,0,0,2,2,False,False,False,False,False,False,False,False,False
+Maren Hassinger,2018,2010,Female,American,Purchase/Fund,1947.0,1,71.0,False,2,0,2,4,False,False,True,False,False,False,False,False,False
+Mark Bradford,2016,2010,Male,American,Gift/Donation,1961.0,3,55.0,False,0,0,1,1,False,False,False,False,False,False,False,False,False
+Mark Grotjahn,2011,2010,Male,American,Gift/Donation,1968.0,4,43.0,False,0,0,1,1,False,False,False,False,False,False,False,False,False
+Mark Manders,2010,2010,Male,European,Purchase/Fund,1968.0,3,42.0,False,1,1,1,3,False,False,False,True,False,False,False,False,False
+Marlene Dumas,2005,2000,Female,Non-Western / Global South,Gift/Donation,1953.0,3,52.0,False,5,2,3,10,False,False,False,True,False,False,False,False,False
+Marlon Mullen,2020,2020,Male,American,Gift/Donation,1963.0,2,57.0,False,1,0,0,1,False,False,False,False,False,False,False,False,False
+Martin Boyce,2012,2010,Male,European,Gift of Artist,1967.0,2,45.0,False,1,0,2,3,False,False,False,False,False,False,False,False,True
+Martin Maloney,2011,2010,Male,European,Gift/Donation,1961.0,1,50.0,False,0,0,3,3,False,False,False,False,False,False,False,False,False
+Martin Wong,2011,2010,Male,American,Gift/Donation,1946.0,4,65.0,True,0,0,3,3,False,False,False,False,False,False,False,False,False
+Mary Corse,2019,2010,Female,American,Gift/Donation,1945.0,1,74.0,False,0,0,1,1,False,False,False,False,False,False,False,False,False
+Mary Heilmann,2015,2010,Female,American,Gift/Donation,1940.0,2,75.0,False,2,0,0,2,True,False,True,False,False,False,False,False,False
+Mary Weatherford,2013,2010,Female,American,Purchase/Fund,1963.0,1,50.0,False,0,0,1,1,False,False,False,False,False,False,False,False,False
+Matt Connors,2013,2010,Male,American,Purchase/Fund,1973.0,2,40.0,False,1,0,2,3,True,False,False,False,True,False,False,False,False
+Matthew Wong,2020,2020,Male,Anglo other,Gift/Donation,1984.0,1,36.0,True,0,0,1,1,False,False,False,False,False,False,False,False,False
+Michael Craig-Martin,2023,2020,Male,European,Gift of Artist,1941.0,1,82.0,False,2,2,4,8,False,False,False,True,True,False,False,False,False
+Michael Williams,2014,2010,Male,American,Purchase/Fund,1978.0,1,36.0,False,0,0,1,1,False,False,False,False,False,False,False,False,False
+Michel Majerus,2014,2010,Male,European,Gift/Donation,1967.0,2,47.0,True,0,0,1,1,False,False,False,False,False,False,False,False,False
+Mickalene Thomas,2023,2020,Female,American,Gift/Donation,1971.0,1,52.0,False,2,0,3,5,False,False,True,False,True,False,False,False,False
+Mladen Stilinović,2014,2010,Male,European,Gift/Donation,1947.0,1,67.0,False,1,1,0,2,False,False,False,True,False,False,False,False,False
+Monika Baer,2024,2020,Female,European,Purchase/Fund,1964.0,1,60.0,False,0,1,1,2,False,False,False,True,False,False,False,False,False
+Monika Sosnowska,2012,2010,Female,European,Gift/Donation,1972.0,1,40.0,False,2,0,2,4,False,False,False,False,False,False,False,False,False
+Mrinalini Mukherjee,2017,2010,Female,Non-Western / Global South,Purchase/Fund,1949.0,1,68.0,True,0,0,2,2,False,False,False,False,False,False,False,False,False
+Nairy Baghramian,2018,2010,Female,European,Purchase/Fund,1971.0,2,47.0,False,2,1,1,4,False,False,False,True,False,False,False,False,False
+Nari Ward,2013,2010,Male,Non-Western / Global South,Gift/Donation,1963.0,1,50.0,False,2,1,2,5,True,False,False,True,False,False,False,False,False
+Ndidi Dike,2025,2020,Female,European,Gift/Donation,1960.0,1,65.0,False,0,0,1,1,False,False,False,False,False,False,False,False,False
+Nick Cave,2012,2010,Male,American,Gift/Donation,1959.0,1,53.0,False,12,0,2,14,False,False,False,False,False,False,False,False,False
+Nicole Eisenman,2015,2010,Female,American,Purchase/Fund,1965.0,3,50.0,False,3,0,2,5,True,True,True,False,False,False,True,False,False
+Nike Davies-Okundaye,2023,2020,Female,Non-Western / Global South,Purchase/Fund,1951.0,1,72.0,False,1,0,0,1,False,False,False,False,False,False,False,False,False
+Olafur Eliasson,2011,2010,Male,European,Gift/Donation,1967.0,1,44.0,False,17,3,1,21,False,False,False,False,False,False,False,False,False
+Oscar Tuazon,2012,2010,Male,American,Purchase/Fund,1975.0,1,37.0,False,0,0,2,2,False,False,False,False,False,False,False,False,False
+Otobong Nkanga,2023,2020,Female,Non-Western / Global South,Gift/Donation,1974.0,1,49.0,False,3,1,2,6,False,False,False,True,False,False,False,False,False
+Ouattara Watts,2020,2020,Male,American,Gift/Donation,1957.0,1,63.0,False,0,1,1,2,False,False,False,True,False,False,False,False,False
+Pacita Abad,2024,2020,Female,Non-Western / Global South,Gift/Donation,1946.0,1,78.0,True,0,0,4,4,False,False,False,False,False,False,False,False,False
+Park McArthur,2016,2010,Female,American,Purchase/Fund,1984.0,2,32.0,False,1,0,0,1,True,False,False,False,False,False,False,False,False
+Paulo Monteiro,2014,2010,Male,Non-Western / Global South,Purchase/Fund,1961.0,4,53.0,False,0,0,0,0,False,False,False,False,False,False,False,False,False
+Pawel Althamer,2012,2010,Male,European,Gift/Donation,1967.0,2,45.0,False,4,1,1,6,False,False,False,True,False,False,False,False,False
+Peter Doig,2004,2000,Male,European,Gift/Donation,1959.0,3,45.0,False,2,0,3,5,False,False,False,False,False,False,False,False,False
+Peter Halley,2011,2010,Male,American,Gift of Artist,1953.0,1,58.0,False,0,0,3,3,False,False,False,False,True,False,False,False,False
+Pierre Huyghe,2015,2010,Male,European,Purchase/Fund,1962.0,2,53.0,False,1,2,2,5,False,False,False,True,False,False,False,False,False
+Pinaree Sanpitak,2025,2020,Female,Non-Western / Global South,Gift/Donation,1961.0,1,64.0,False,0,0,2,2,False,False,False,False,False,False,False,False,False
+R. H. Quaytman,2009,2000,Female,American,Purchase/Fund,1961.0,7,48.0,False,1,1,2,4,False,False,False,True,False,False,False,False,False
+Raqib Shaw,2005,2000,Male,Non-Western / Global South,Gift/Donation,1974.0,1,31.0,False,0,0,1,1,False,False,False,False,False,False,False,False,False
+Rashid Johnson,2021,2020,Male,American,Gift/Donation,1977.0,1,44.0,False,0,1,2,3,False,False,False,False,False,False,False,False,False
+Richard Aldrich,2015,2010,Male,American,Purchase/Fund,1975.0,3,40.0,False,0,0,2,2,False,False,False,False,False,False,False,False,False
+Richard Prince,2016,2010,Male,American,Gift/Donation,1949.0,1,67.0,False,0,1,1,2,False,False,False,True,False,False,False,False,False
+Rirkrit Tiravanija,2011,2010,Male,Non-Western / Global South,Gift/Donation,1961.0,1,50.0,False,1,0,2,3,False,False,False,False,False,False,False,False,False
+Rivane Neuenschwander,2012,2010,Female,Non-Western / Global South,Purchase/Fund,1967.0,1,45.0,False,1,1,0,2,False,False,False,False,False,False,False,False,False
+Rochelle Feinstein,2022,2020,Female,American,Purchase/Fund,1947.0,1,75.0,False,3,0,2,5,True,False,True,False,False,False,False,False,False
+Rodney McMillian,2017,2010,Male,American,Purchase/Fund,1969.0,1,48.0,False,1,0,3,4,False,False,False,False,False,True,False,False,False
+Romuald Hazoumè,2019,2010,Male,Non-Western / Global South,Gift/Donation,1962.0,3,57.0,False,2,1,0,3,False,False,False,True,False,False,False,False,False
+Rosemarie Trockel,2008,2000,Female,European,Purchase/Fund,1952.0,4,56.0,False,4,2,0,6,False,False,False,True,False,False,False,False,False
+Ryan Sullivan,2013,2010,Male,American,Purchase/Fund,1983.0,1,30.0,False,0,0,2,2,False,False,False,False,False,False,False,False,False
+Sadie Benning,2014,2010,Non-binary,American,Other,1973.0,2,41.0,False,1,0,1,2,True,False,False,False,False,False,False,False,False
+Salah Elmur,2024,2020,Male,Non-Western / Global South,Other,1966.0,1,58.0,False,0,0,2,2,False,False,False,False,False,False,False,False,False
+Sarah Lucas,2005,2000,Female,European,Gift/Donation,1962.0,1,43.0,False,0,0,1,1,False,False,False,False,False,False,False,False,False
+Sarah Sze,2014,2010,Female,American,Gift/Donation,1969.0,3,45.0,False,1,0,4,5,False,True,False,False,True,False,False,False,False
+Senga Nengudi,2011,2010,Female,American,Purchase/Fund,1943.0,2,68.0,False,2,0,2,4,False,False,True,False,False,False,False,False,False
+Sergej Jensen,2008,2000,Male,European,Gift/Donation,1973.0,3,35.0,False,1,0,0,1,False,False,False,False,False,False,False,False,False
+Seth Price,2011,2010,Male,American,Gift/Donation,1973.0,15,38.0,False,0,0,1,1,False,False,False,False,False,False,False,False,False
+Sheela Gowda,2018,2010,Female,Non-Western / Global South,Purchase/Fund,1957.0,1,61.0,False,2,1,1,4,False,False,False,True,False,False,False,False,False
+Sherrie Levine,2004,2000,Female,American,Gift/Donation,1947.0,14,57.0,False,0,1,2,3,False,False,False,True,False,False,False,False,False
+Silke Otto-Knapp,2017,2010,Female,European,Purchase/Fund,1970.0,1,47.0,False,0,0,2,2,False,False,False,False,False,False,False,False,False
+Simon Denny,2014,2010,Male,Anglo other,Purchase/Fund,1982.0,4,32.0,False,1,0,1,2,False,False,False,False,False,False,False,False,False
+Simone Leigh,2023,2020,Female,American,Gift/Donation,1968.0,1,55.0,False,3,0,1,4,True,False,True,False,False,False,False,False,False
+Suki Seokyeong Kang,2024,2020,Female,Non-Western / Global South,Purchase/Fund,1977.0,1,47.0,False,0,0,1,1,False,False,False,False,False,False,False,False,False
+Susan Cianciolo,2024,2020,Female,American,Purchase/Fund,1969.0,1,55.0,False,0,0,1,1,False,False,False,False,False,False,False,False,False
+Suzan Frecon,2020,2020,Female,American,Gift/Donation,1941.0,1,79.0,False,1,0,1,2,False,False,True,False,False,False,False,False,False
+Suzanne Jackson,2021,2020,Female,American,Purchase/Fund,1944.0,1,77.0,False,2,0,3,5,False,False,True,False,True,False,False,False,False
+T.C. Cannon,2020,2020,Male,Unknown,Gift/Donation,1946.0,1,74.0,True,1,0,1,2,False,False,False,False,False,False,False,False,False
+Tauba Auerbach,2012,2010,Female,American,Purchase/Fund,1981.0,3,31.0,False,1,0,1,2,False,False,False,False,False,False,False,False,False
+Thea Djordjadze,2015,2010,Female,European,Purchase/Fund,1971.0,1,44.0,False,0,1,3,4,False,False,False,True,False,False,False,False,False
+Thomas Lanigan-Schmidt,2013,2010,Male,American,Gift/Donation,1948.0,1,65.0,False,0,1,1,2,False,False,False,False,False,False,False,False,False
+Thomas Schütte,2012,2010,Male,European,Purchase/Fund,1954.0,2,58.0,False,3,3,1,7,False,False,False,True,False,False,False,False,False
+Tishan Hsu,2022,2020,Male,American,Purchase/Fund,1951.0,1,71.0,False,0,0,1,1,False,False,False,False,False,False,False,False,False
+Titus Kaphar,2020,2020,Male,American,Gift/Donation,1976.0,1,44.0,False,1,0,2,3,False,True,False,False,True,False,False,False,False
+Tomma Abts,2012,2010,Female,European,Gift/Donation,1967.0,1,45.0,False,1,0,0,1,False,False,False,False,False,False,False,False,True
+Trisha Donnelly,2010,2010,Female,American,Purchase/Fund,1974.0,4,36.0,False,0,1,3,4,False,False,False,True,True,False,False,False,False
+Ulrike Müller,2018,2010,Female,European,Purchase/Fund,1971.0,6,47.0,False,0,1,0,1,False,False,False,False,False,False,False,False,False
+Ursula von Rydingsvard,2006,2000,Female,American,Gift/Donation,1942.0,3,64.0,False,3,0,0,3,True,False,False,False,False,False,False,False,False
+Valeska Soares,2022,2020,Female,Non-Western / Global South,Gift/Donation,1957.0,1,65.0,False,2,0,0,2,True,False,True,False,False,False,False,False,False
+Vincent Fecteau,2010,2010,Male,American,Gift/Donation,1969.0,1,41.0,False,3,0,1,4,True,True,False,False,False,False,False,False,False
+Vivan Sundaram,2024,2020,Male,Non-Western / Global South,Gift/Donation,1943.0,1,81.0,True,0,0,2,2,False,False,False,False,False,False,False,False,False
+Wade Guyton,2007,2000,Male,American,Purchase/Fund,1972.0,4,35.0,False,0,0,2,2,False,False,False,False,False,False,False,False,False
+Wanda Pimentel,2024,2020,Female,Non-Western / Global South,Purchase/Fund,1943.0,1,81.0,True,0,0,1,1,False,False,False,False,False,False,False,False,False
+Wangechi Mutu,2022,2020,Female,Non-Western / Global South,Gift/Donation,1972.0,1,50.0,False,1,0,3,4,False,False,False,False,True,False,False,False,False
+Wilhelm Sasnal,2005,2000,Male,European,Purchase/Fund,1972.0,1,33.0,False,2,0,1,3,False,False,False,False,False,False,False,False,False
+William Scott,2019,2010,Male,American,Gift/Donation,1964.0,1,55.0,False,0,0,1,1,False,False,False,False,False,False,False,False,False
+Y.Z. Kami,2023,2020,Male,American,Gift/Donation,1956.0,1,67.0,False,0,0,2,2,False,False,False,False,False,False,False,False,False
+Yinka Shonibare,2002,2000,Male,European,Gift/Donation,1962.0,3,40.0,False,3,1,3,7,False,False,False,True,False,False,False,False,False
+Zhang Huan,2022,2020,Male,Non-Western / Global South,Gift/Donation,1965.0,1,57.0,False,0,0,1,1,False,False,False,False,False,False,False,False,False
+Éric van Hove,2022,2020,Male,European,Gift/Donation,1975.0,1,47.0,False,0,0,1,1,False,False,False,False,False,False,False,False,False
